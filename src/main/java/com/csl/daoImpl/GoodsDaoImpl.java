@@ -269,7 +269,7 @@ public class GoodsDaoImpl implements IGoodsDao {
         this.namedParameterJdbcTemplate.getJdbcOperations().query(sql, new RowCallbackHandler() {
             public void processRow(ResultSet resultSet) throws SQLException {
                 GoodsDO goodsDO = new GoodsDO();
-                goodsDO.setID(resultSet.getString("GOODS.GOODSID"));
+                goodsDO.setID(resultSet.getString("ID"));
                 goodsDO.setName(resultSet.getString("NAME"));
                 goodsDO.setDescription(resultSet.getString("DESCRIPTION"));
                 goodsDO.setPrice(resultSet.getInt("PRICE"));
@@ -286,7 +286,7 @@ public class GoodsDaoImpl implements IGoodsDao {
 
     private List<GoodsDO> executeSelect(final String sql, final MapSqlParameterSource mapSqlParameterSource) {
         final List<GoodsDO> goodsDOList = new ArrayList<GoodsDO>();
-        this.namedParameterJdbcTemplate.getJdbcOperations().query(sql, new RowCallbackHandler() {
+        this.namedParameterJdbcTemplate.query(sql, mapSqlParameterSource, new RowCallbackHandler() {
             public void processRow(ResultSet resultSet) throws SQLException {
                 GoodsDO goodsDO = new GoodsDO();
                 goodsDO.setID(resultSet.getString("ID"));

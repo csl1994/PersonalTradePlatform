@@ -8,6 +8,7 @@ function HomePage() {
     var goodsKind = $("#goodsKind").val();
     var sortBasis = $("#sortBasis").val();
     var page = $("#page").val();
+    var count = 16;
     var ajax = new AjaxMethod();
     var goodsList = undefined;
     var innerHelper = {
@@ -54,7 +55,7 @@ function HomePage() {
             var defer = ajax.getPage(userID, region, goodsKind);
             defer.done(innerHelper.showPageList).fail();
         },
-        updateValue:function () {
+        updateValue: function () {
             userID = $.cookie("userID");
             userPassword = $.cookie("userPassword");
             region = $("#region").val();
@@ -77,7 +78,7 @@ function HomePage() {
         showPageList: function (data) {
             var options = {
                 pageElement: $(".goods-page-list"),
-                count: 100,
+                count: Math.ceil(data / count),
             };
             goodsList.initPage(options);
         },
