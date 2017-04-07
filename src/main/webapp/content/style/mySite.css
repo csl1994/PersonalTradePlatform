@@ -1,0 +1,384 @@
+body, head {
+    margin: 0;
+    padding: 0;
+    min-width: 1200px;
+}
+
+input {
+    outline: none;
+}
+
+p {
+    margin: 0;
+    p: 0
+}
+
+.head {
+    overflow: hidden;
+}
+
+.hide {
+    display: none;
+}
+
+.float-left {
+    float: left;
+}
+
+.a-button {
+    display: block;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.page-head {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    padding-right: 200px;
+    background-color: #c35ac1;
+}
+
+.home-button-div {
+    float: left;
+    margin-left: 350px;
+}
+
+.head-button-div {
+    float: left;
+    margin-left: 15px;
+}
+
+.head-button {
+    color: #ffffff;
+    font-size: 17px;
+    margin-right: 50px;
+}
+
+.head-button:hover {
+    color: #111111;
+}
+
+.home-button {
+    height: 50px;
+    width: 80px;
+}
+
+.region-image {
+    width: 16px;
+    height: 16px;
+    float: right;
+    background: url("/content/image/arrow_down_white.png") no-repeat;
+    margin-left: 10px;
+    margin-top: 17px;
+}
+
+.content {
+    width: 1024px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.goods-filter {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    background-color: #c35ac1;
+    margin-top: 2px;
+    color: #ffffff;
+}
+
+.filter-name {
+    float: left;
+    font-size: 15px;
+    margin-left: 50px;
+    color: #ffffff;
+}
+
+.filter-name:hover {
+    color: #000000;
+}
+
+.sort-asc {
+    margin-top: 2px;
+    width: 16px;
+    height: 16px;
+    background: url("/content/image/arrow_up_white.png") no-repeat;
+}
+
+.sort-desc {
+    margin-top: -6px;
+    width: 16px;
+    height: 16px;
+    background: url("/content/image/arrow_down_white.png");
+}
+
+.sort-asc:hover {
+    background: url("/content/image/arrow_up_black.png");
+}
+
+.sort-desc:hover {
+    background: url("/content/image/arrow_down_black.png");
+}
+
+.container-image {
+    margin-left: 10px;
+}
+
+.goods-list-row {
+    /*todo*/
+    height: 310px;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.goods-container {
+    position: relative;
+    float: left;
+    width: 248px;
+    height: auto;
+    margin: 0 2px;
+    padding: 1px 1px 10px;
+    border: solid 1px #ffffff;
+}
+
+.goods-container:hover {
+    border: solid 1px #c35ac1;
+    cursor: hand;
+}
+
+.goods-image {
+    max-width: 100%;
+    height: 200px;
+}
+
+.goods-information {
+    margin-top: 4px;
+    padding: 1px 5px;
+}
+
+.goods-name {
+    margin-top: 5px;
+    font-size: 15px;
+}
+
+.goods-description {
+    height: 15px;
+    margin-top: 5px;
+    white-space: nowrap;
+    font-size: 10px;
+    color: #999999;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Safari 和 Chrome */
+@-webkit-keyframes marquee {
+    from {
+        left: 0;
+    }
+    to {
+        left: -120%;
+    }
+}
+
+/* Firefox */
+@-moz-keyframes marquee {
+    from {
+        left: 0;
+    }
+    to {
+        left: -120%;
+    }
+}
+
+@-ms-keyframes marquee {
+    from {
+        left: 0;
+    }
+    to {
+        left: -120%;
+    }
+}
+
+/* Opera */
+@-o-keyframes marquee {
+    from {
+        left: 0;
+    }
+    to {
+        left: -120%;
+    }
+}
+
+@keyframes marquee {
+    from {
+        left: 0
+    }
+    to {
+        left: -120%
+    }
+}
+
+.marquee {
+    position: absolute;
+    -webkit-animation: marquee 10s linear infinite;
+    -moz-animation: marquee 10s linear infinite;
+    -ms-animation: marquee 10s linear infinite;
+    -o-animation: marquee 10s linear infinite;
+    animation: marquee 10s linear infinite;
+}
+
+.goods-price {
+    color: #c35ac1;
+    font-size: 15px;
+}
+
+.goods-operation {
+    float: left;
+    background-color: #ffffff;
+    color: #111111;
+    text-align: center;
+}
+
+.goods-operation:hover {
+    background-color: #c35ac1;
+    color: #ffffff;
+}
+
+.goods-operation-left {
+    font-size: 15px;
+    color: #c35ac1;
+}
+
+.goods-operation-middle, .goods-operation-right {
+    margin-left: 40px;
+    font-size: 13px;
+}
+
+.goods-page-list {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.goods-page, .goods-more-next, .goods-more-previous, .goods-page-previous, .goods-page-next {
+    display: inline;
+    font-size: 15px;
+    color: #c35ac1;
+    margin-left: 10px;
+    border: solid 1px #ffffff;
+}
+
+.goods-page:hover, .goods-more-next:hover, .goods-more-previous:hover, .goods-page-previous:hover, .goods-page-next:hover {
+    border: solid 1px #c35ac1;
+}
+
+.goods-watermark {
+    position: absolute;
+    top: 1px;
+    background-color: #c35ac1;
+    opacity: 0.7;
+    font-size: 10px;
+    color: #ffffff;
+}
+
+.backdrop {
+    position: fixed;
+    z-index: 1024;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #000000;
+    opacity: 0.7;
+}
+
+.user-dialog {
+    top: 50%;
+    left: 50%;
+    margin: -141px 0 0 -201px;
+    width: 400px;
+    height: 280px;
+    position: fixed;
+    border: 2px solid #c35ac1;
+    text-align: center;
+    font-size: 14px;
+    background-color: #ffffff;
+    overflow: hidden;
+    z-index: 102400;
+}
+
+.user-title {
+    margin-top: 5px;
+    color: #111111;
+    font-size: 20px;
+}
+
+.user-close {
+    margin-top: -35px;
+    margin-left: 370px;
+    font-size: 32px;
+    float: left;
+    color: #999999;
+    position: absolute;
+    cursor: pointer;
+}
+
+.user-close:hover {
+    color: #c35ac1;
+}
+
+.user-account {
+    padding: 20px 10px 10px;
+}
+
+.user-information, .user-operation {
+    margin-top: 15px;
+}
+
+.user-information > input {
+    height: 35px;
+    width: 250px;
+    padding: 20px;
+    border: 1px solid #999999;
+    border-radius: 4px;
+    outline-style: none;
+    font-size: 14px;
+    background-color: transparent;
+}
+
+.user-information > input:hover {
+    border: 1px solid #c35ac1;
+}
+
+.user-login {
+    width: 250px;
+    height: 30px;
+    font-size: 14px;
+    background-color: #ffffff;
+    border: 1px solid #999999;
+    border-radius: 5px;
+}
+
+.user-register, .user-forget {
+    width: 100px;
+    border: 1px solid #ffffff;
+    background-color: #ffffff;
+}
+
+.user-login:hover, .user-register:hover, .user-forget:hover {
+    cursor: pointer;
+    color: #c35ac1;
+}
+
+.validateInput{
+    width: 150px !important;
+}
+
+.validateImage{
+    display: inline !important;
+    width: 100px;
+    height: 35px;
+}
