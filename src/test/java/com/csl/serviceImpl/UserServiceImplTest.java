@@ -7,7 +7,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
-import java.util.Date;
 import java.util.UUID;
 
 import static org.testng.Assert.assertEquals;
@@ -45,9 +44,6 @@ public class UserServiceImplTest extends AbstractTestNGSpringContextTests{
     @Test
     public void changePassword(){
         ValidateCode validateCoder = ValidateCode.getInstance();
-        String name = validateCoder.generateImages();
-        //boolean result = userService.resetPassword("18840824441@163.com","123456");
-        //assertTrue(result);
     }
 
     @Test
@@ -55,5 +51,9 @@ public class UserServiceImplTest extends AbstractTestNGSpringContextTests{
         UserDO user1 = userService.getUserByEmail("18840824441@163.com");
         UserDO user2 = userService.getUserByID(user1.getID());
         assertEquals(user1,user2);
+    }
+
+    @Test
+    public void test(){
     }
 }

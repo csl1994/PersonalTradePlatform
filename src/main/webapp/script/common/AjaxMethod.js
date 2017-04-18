@@ -73,5 +73,88 @@ function AjaxMethod() {
                 dataType: "json",
             });
         },
+        sendValidateCode: function (email) {
+            var options = {
+                email: email,
+            };
+            return $.ajax({
+                type: "GET",
+                url: "user/sendValidateCode.html",
+                data: options,
+                dataType: "text",
+            });
+        },
+        checkValidateCode: function (validateCode, kind) {
+            var options = {
+                validateCode: validateCode,
+                kind: kind,
+            };
+            return $.ajax({
+                type: "GET",
+                url: "user/checkValidateCode.html",
+                data: options,
+                dataType: "text",
+            });
+        },
+        checkEmail: function (userEmail) {
+            var options = {
+                userEmail: userEmail,
+            };
+            return $.ajax({
+                type: "GET",
+                url: "user/checkEmail.html",
+                data: options,
+                dataType: "text",
+            });
+        },
+        checkName: function (userName) {
+            var options = {
+                userName: userName,
+            };
+            return $.ajax({
+                type: "GET",
+                url: "user/checkName.html",
+                data: options,
+                dataType: "text",
+            });
+        },
+        checkTelephone: function (telephone) {
+            var options = {
+                telephone: telephone,
+            };
+            return $.ajax({
+                type: "GET",
+                url: "user/checkTelephone.html",
+                data: options,
+                dataType: "text",
+            });
+        },
+        registerAccount: function (email, password, name, telephone, region) {
+            var options = {
+                email: email,
+                password: password,
+                name: name,
+                telephone: telephone,
+                region: region,
+            };
+            return $.ajax({
+                type: "POST",
+                url: "user/registerAccount.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        updateAccount: function (email, password) {
+            var options = {
+                email: email,
+                password: password,
+            };
+            return $.ajax({
+                type: "POST",
+                url: "user/updateAccount.html",
+                data: options,
+                dataType: "json",
+            })
+        }
     }
 }

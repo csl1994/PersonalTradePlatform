@@ -19,5 +19,7 @@ public interface IUserService {
 
     Boolean checkEmail(String email);
 
+    Boolean checkName(String name);
+
     Boolean checkTelephone(String telephone);
 }

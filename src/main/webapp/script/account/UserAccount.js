@@ -4,6 +4,10 @@
 function UserAccount() {
     var userEmail = "";
     var userPassword = "";
+    var userName = "";
+    var telephone = "";
+    var region = "";
+    var acceptEmail = "";
     var ajax = new AjaxMethod();
     var innerHelper = {
         bindEvent: function () {
@@ -31,6 +35,7 @@ function UserAccount() {
                         $("body").css("overflow", "auto");
                         break;
                     case "register":
+                        innerHelper.validateRegisterCode();
                         break;
                     case "forgetPassword":
                         $("#loginForm").hide();
@@ -41,9 +46,14 @@ function UserAccount() {
                         $("#forgetForm").hide();
                         $("body").css("overflow", "auto");
                         break;
-                    case "getValidateCode":
+                    case "sendValidateCode":
+                        innerHelper.sendValidateCode();
                         break;
-                    case "confirm":
+                    case "forgetConfirm":
+                        innerHelper.validateForgetCode();
+                        break;
+                    case "userConfirm":
+                        innerHelper.checkInformation();
                         break;
                     default:
                         break;
@@ -51,8 +61,8 @@ function UserAccount() {
             });
         },
         checkUser: function () {
-            userEmail = $("#loginEmail").val();
-            userPassword = $("#loginPassword").val();
+            userEmail = $.trim($("#loginEmail").val());
+            userPassword = $.md5($.trim($("#loginPassword").val()));
             if (userEmail === "") {
                 alert("邮箱不能为空");
             } else if (userPassword === "") {
@@ -81,7 +91,7 @@ function UserAccount() {
             $("#user").parent("div").show();
             $("#user").text("").text(data.name);
             $(".backdrop").hide();
-            $("#loginForm").hide();
+            $(".user-dialog").hide();
             $("body").css("overflow", "auto");
             home.reLoad();
         },
@@ -90,14 +100,163 @@ function UserAccount() {
             defer.done(innerHelper.showValidateCode).fail();
         },
         showValidateCode: function (data) {
-            var src = "/validateCode/" + data + ".png";
             var img = new Image();
-            img.src = src;
+            img.src = data;
             img.alt = "validate";
+            img.className = "validate-img";
+            img.title = "点击刷新";
+            img.onclick = innerHelper.refreshValidateCode;
             img.onload = function () {
                 $("#validateImage").empty().append(img);
             }
-        }
+        },
+        refreshValidateCode: function () {
+            innerHelper.generateValidateCode();
+        },
+        validateRegisterCode: function () {
+            var validateCode = $.trim($("#registerValidate").val());
+            var defer = ajax.checkValidateCode(validateCode.toLowerCase(), 1);
+            defer.done(innerHelper.checkRegisterEmail).fail();
+        },
+        checkRegisterEmail: function (data) {
+            userEmail = $.trim($("#registerEmail").val());
+            userPassword = $.trim($("#registerEmail").parent("div").next("div").children("input").last().val());
+            if (data === "true") {
+                if (innerHelper.checkEmailFormat(userEmail)) {
+                    if (userPassword.length < 6) {
+                        alert("密码长度小于6");
+                    } else if (userPassword.length > 32) {
+                        alert("密码过长");
+                    } else {
+                        userPassword = $.md5(userPassword);
+                        var defer = ajax.checkEmail(userEmail);
+                        defer.done(innerHelper.fillUserInformation).fail();
+                    }
+                }
+                else {
+                    alert("邮箱格式错误");
+                }
+            } else {
+                alert("验证码错误");
+                innerHelper.generateValidateCode();
+            }
+        },
+        fillUserInformation: function (data) {
+            if (data === "true") {
+                $("#registerForm").hide();
+                $("#userInformation").show();
+            } else {
+                alert("邮箱已被占用");
+            }
+        },
+        checkInformation: function () {
+            var regex = /^([0-9]{11})?$/;
+            telephone = $.trim($("#userTelephone").val());
+            userName = $.trim($("#userName").val());
+            region = $.trim($("#userRegion").val());
+            if (!regex.test(telephone)) {
+                alert("输入正确的号码");
+            } else if (!userName || !telephone || !region) {
+                alert("请输入全部信息");
+            } else {
+                innerHelper.checkName();
+            }
+        },
+        checkName: function () {
+            var defer = ajax.checkName(userName);
+            defer.done(innerHelper.checkTelephone).fail();
+        },
+        checkTelephone: function (data) {
+            if (data === "true") {
+                var defer = ajax.checkTelephone(telephone);
+                defer.done(innerHelper.registerAccount).fail();
+            } else {
+                alert("用户名被占用");
+            }
+        },
+        registerAccount: function (data) {
+            if (data === "true") {
+                var defer = ajax.registerAccount(userEmail, userPassword, userName, telephone, region);
+                defer.done(innerHelper.registerDone).fail();
+            } else {
+                alert("电话已被占用");
+            }
+        },
+        registerDone: function (data) {
+            if (data) {
+                innerHelper.saveToCookie(data);
+            } else {
+                alert("注册失败");
+            }
+        },
+        sendValidateCode: function () {
+            userEmail = $.trim($("#forgetEmail").val());
+            if (innerHelper.checkEmailFormat(userEmail)) {
+                var defer = ajax.sendValidateCode(userEmail);
+                defer.done(innerHelper.showMessage).fail();
+            } else {
+                alert("邮箱格式错误");
+            }
+        },
+        showMessage: function (data) {
+            if (data === "true") {
+                alert("已发送");
+            } else {
+                alert("发送失败");
+            }
+        },
+        validateForgetCode: function () {
+            userEmail = $.trim($("#forgetEmail").val());
+            if (acceptEmail !== userEmail) {
+                alert("邮箱不一致，请重新发送");
+            }
+            else{
+                var validateCode = $.trim($("#forgetValidate").val());
+                var defer = ajax.checkValidateCode(validateCode.toLowerCase(), 2);
+                defer.done(innerHelper.checkForgetEmail).fail();
+            }
+        },
+        checkForgetEmail: function (data) {
+            userPassword = $.trim($("#forgetEmail").parent("div").next("div").children("input").last().val());
+            if (data === "true") {
+                if (innerHelper.checkEmailFormat(userEmail)) {
+                    if (userPassword.length < 6) {
+                        alert("密码长度小于6");
+                    } else if (userPassword.length > 32) {
+                        alert("密码过长");
+                    } else {
+                        userPassword = $.md5(userPassword);
+                        var defer = ajax.checkEmail(userEmail);
+                        defer.done(innerHelper.updatePassword).fail();
+                    }
+                }
+                else {
+                    alert("邮箱格式错误");
+                }
+            } else {
+                alert("验证码错误");
+            }
+        },
+        updatePassword: function (data) {
+            if (data === "true") {
+                alert("账户不存在");
+            } else {
+                var defer = ajax.updateAccount(userEmail, userPassword);
+                defer.done(innerHelper.updateDone).fail();
+            }
+        },
+        updateDone: function (data) {
+            if (data) {
+                innerHelper.saveToCookie(data);
+            } else {
+                alert("操作失败");
+            }
+        },
+        checkEmailFormat: function (email) {
+            acceptEmail = email;
+            var regex = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+            return regex.test(email);
+        },
     };
     return {
         init: function () {

@@ -10,9 +10,9 @@ function HomePage() {
     var page = $("#page").val();
     var count = 16;
     var ajax = new AjaxMethod();
-    var goodsList = undefined;
     var innerHelper = {
         initPage: function () {
+            innerHelper.updateValue();
             innerHelper.getInformation();
             innerHelper.bindEvent();
         },
@@ -34,9 +34,17 @@ function HomePage() {
                     innerHelper.initPage();
                 }
             });
+            $(".goods-page-list").first().unbind("click").bind("click", function () {
+                if (page != goodsList.getCurrentPage()) {
+                    goodsList.setCurrentPage();
+                    $("#goodsList").empty();
+                    innerHelper.updateValue();
+                    innerHelper.getInformation();
+                }
+
+            });
         },
         getInformation: function () {
-            innerHelper.updateValue();
             if (userID && userPassword) {
                 userID = $.cookie("userID");
             } else {
@@ -64,13 +72,20 @@ function HomePage() {
             page = $("#page").val();
         },
         showGoodsList: function (data) {
-            var options = {
-                listElement: $("#goodsList"),
-                data: data,
+            if (!goodsList) {
+                var options = {
+                    listElement: $("#goodsList"),
+                    data: data,
+                };
+                goodsList = new GoodsList(options);
+                goodsList.init();
             }
-            goodsList = new GoodsList(options);
-            goodsList.init();
-            innerHelper.getPageInformation();
+            else {
+                goodsList.showPage(data);
+            }
+            if (!$(".goods-page-list").text()) {
+                innerHelper.getPageInformation();
+            }
         },
         showError: function () {
             alert("error");
@@ -79,6 +94,7 @@ function HomePage() {
             var options = {
                 pageElement: $(".goods-page-list"),
                 count: Math.ceil(data / count),
+                currentPageElement: $("#page"),
             };
             goodsList.initPage(options);
         },

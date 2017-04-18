@@ -14,9 +14,12 @@
     <meta http-equiv= "Pragma" content= "no-cache" />
     <meta http-equiv= "Cache-Control" content= "no-cache" />
     <meta http-equiv= "Expires" content= "0" />
-    <link rel="stylesheet" href="content/style/mySite.css?v=613"/>
+    <link rel="stylesheet" href="content/style/mySite.css?v=233"/>
     <script src="script/jquery-3.1.1.js"></script>
     <script src="script/jquery.cookie.js"></script>
+    <script src="script/jquery.md5.js"></script>
+    <script src="script/jquery.validate.min.js"></script>
+    <script src="script/jquery.metadata.js"></script>
 </head>
 <body>
 <input type="hidden" id="goodsKind" value=""/>
@@ -80,9 +83,9 @@
         <br/>
     </div>
 </div>
-<script src="script/common/GoodsList.js?v=3"></script>
-<script src="script/common/AjaxMethod.js?v=4"></script>
-<script src="script/home/HomePage.js?v=8892"></script>
+<script src="script/common/GoodsList.js?v=972"></script>
+<script src="script/common/AjaxMethod.js?v=21"></script>
+<script src="script/home/HomePage.js?v=6767"></script>
 <%@include file="view/account/UserAccount.jsp" %>
 </body>
 </html>

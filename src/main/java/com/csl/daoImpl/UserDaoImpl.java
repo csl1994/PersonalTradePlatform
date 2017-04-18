@@ -111,10 +111,22 @@ public class UserDaoImpl implements IUserDao {
         return ID.size();
     }
 
+    public int checkName(final String name){
+        final String sql = " SELECT ID FROM USER WHERE NAME=:name ";
+        final List<String> ID = new ArrayList<String>();
+        this.namedParameterJdbcTemplate.query(sql, new MapSqlParameterSource().addValue("name", name),
+                new RowCallbackHandler() {
+                    public void processRow(ResultSet resultSet) throws SQLException {
+                        ID.add(resultSet.getString("ID"));
+                    }
+                });
+        return ID.size();
+    }
+
     public int checkTelephone(String telephone) {
         final String sql = " SELECT ID FROM USER WHERE TELEPHONE=:telephone ";
         final List<String> ID = new ArrayList<String>();
-        this.namedParameterJdbcTemplate.query(sql, new MapSqlParameterSource().addValue("email", telephone),
+        this.namedParameterJdbcTemplate.query(sql, new MapSqlParameterSource().addValue("telephone", telephone),
                 new RowCallbackHandler() {
                     public void processRow(ResultSet resultSet) throws SQLException {
                         ID.add(resultSet.getString("ID"));

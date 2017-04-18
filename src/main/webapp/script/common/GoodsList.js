@@ -9,6 +9,7 @@ var GoodsList = function (options) {
     var pageSetting = {
         pageElement: undefined,
         count: undefined,
+        currentPageElement: undefined,
         border: 10,
         loadPage: undefined,
     };
@@ -26,6 +27,17 @@ var GoodsList = function (options) {
         }
         innerHelper.buildPage();
         innerHelper.buildPageEvent();
+        innerHelper.releasePageEvent();
+    };
+    this.getCurrentPage = function () {
+        return currentPage;
+    };
+    this.setCurrentPage = function () {
+        innerHelper.setCurrentPage(currentPage);
+    };
+    this.showPage = function (data) {
+        settings.data = data;
+        innerHelper.buildGoodsList();
     };
     var innerHelper = {
         buildGoodsList: function () {
@@ -44,9 +56,9 @@ var GoodsList = function (options) {
                 htmlString += "<p class='goods-name'>" + element.name + "</p>";
                 htmlString += "<p class='goods-description'><span>" + element.description + "</span></p>";
                 htmlString += "<p class='goods-price'><span>￥</span>" + element.price + "</p>";
-                htmlString += "<a class='a-button goods-operation goods-operation-left' href='javascript:void(0)'>购买</a>";
-                htmlString += "<a class='a-button goods-operation goods-operation-middle' href='javascript:void(0)'>" + (element.currentUserAttend ? "取消收藏" : "收藏") + "</a>";
-                htmlString += "<a class='a-button goods-operation goods-operation-right' href='javascript:void(0)'>联系老板</a>";
+                // htmlString += "<a class='a-button goods-operation goods-operation-left' href='javascript:void(0)'>购买</a>";
+                // htmlString += "<a class='a-button goods-operation goods-operation-middle' href='javascript:void(0)'>" + (element.currentUserAttend ? "取消收藏" : "收藏") + "</a>";
+                // htmlString += "<a class='a-button goods-operation goods-operation-right' href='javascript:void(0)'>联系老板</a>";
                 htmlString += "</div></div>";
                 if (index % 4 === 3 || index === settings.data.length) {
                     htmlString += "</div>";
@@ -67,15 +79,17 @@ var GoodsList = function (options) {
             });
         },
         buildPage: function () {
-            var htmlString = "<a class='a-button goods-page-previous' href='javascript:void(0)'><</a>";
-            for (var item = 1; item <= pageSetting.count; item++) {
-                htmlString += "<a class='a-button goods-page' href='javascript:void(0)'>" + item + "</a>";
-            }
-            htmlString += "<a class='a-button goods-page-next' href='javascript:void(0)'>></a>";
-            $(pageSetting.pageElement).append(htmlString);
-            currentPage = 1;
-            if (pageSetting.count > pageSetting.border) {
-                innerHelper.buildMoreButton(pageSetting.border - 1, pageSetting.count, 0);
+            if (pageSetting.count > 0) {
+                var htmlString = "<a class='a-button goods-page-previous' href='javascript:void(0)'><</a>";
+                for (var item = 1; item <= pageSetting.count; item++) {
+                    htmlString += "<a class='a-button goods-page' href='javascript:void(0)'>" + item + "</a>";
+                }
+                htmlString += "<a class='a-button goods-page-next' href='javascript:void(0)'>></a>";
+                $(pageSetting.pageElement).append(htmlString);
+                currentPage = 1;
+                if (pageSetting.count > pageSetting.border) {
+                    innerHelper.buildMoreButton(pageSetting.border - 1, pageSetting.count, 0);
+                }
             }
         },
         buildMoreButton: function (left, right, direction) {
@@ -95,20 +109,60 @@ var GoodsList = function (options) {
             }
         },
         buildPageEvent: function () {
-            $(".goods-page-previous").unbind("click").bind("click", function (event) {
-                if (currentPage > 1) {
-                    currentPage = currentPage - 1;
-                }
-            });
-            $(".goods-page").unbind("click").bind("click", function () {
-                currentPage = $(this).text();
-            });
+            $(".goods-page-previous").unbind("click").bind("click", innerHelper.clickPreviousEvent);
+            $(".goods-page").unbind("click").bind("click", innerHelper.clickPageEvent);
             $(".goods-more-next").unbind("click").bind("click", innerHelper.nextPageEvent);
-            $(".goods-page-next").unbind("click").bind("click", function (event) {
-                if (currentPage < pageSetting.count) {
-                    currentPage = currentPage + 1;
-                }
-            });
+            $(".goods-page-next").unbind("click").bind("click", innerHelper.clickNextEvent);
+        },
+        clickPreviousEvent: function () {
+            var index = currentPage - 1;
+            $(".goods-page:eq(" + index + ")").removeClass("current-page").unbind("click").bind("click", innerHelper.clickPageEvent);
+            if (currentPage > 1) {
+                currentPage = currentPage - 1;
+            }
+            if (currentPage !== 1) {
+                $(".goods-page-previous").removeClass("goods-page-border").unbind("click").bind("click", innerHelper.clickPreviousEvent);
+            }
+            if (currentPage !== pageSetting.count) {
+                $(".goods-page-next").removeClass("goods-page-border").unbind("click").bind("click", innerHelper.clickNextEvent);
+            }
+            innerHelper.releasePageEvent();
+        },
+        clickPageEvent: function () {
+            var index = currentPage - 1;
+            $(".goods-page:eq(" + index + ")").removeClass("current-page").unbind("click").bind("click", innerHelper.clickPageEvent);
+            currentPage = new Number($(this).text()) + 0;
+            if (currentPage !== 1) {
+                $(".goods-page-previous").removeClass("goods-page-border").unbind("click").bind("click", innerHelper.clickPreviousEvent);
+            }
+            if (currentPage !== pageSetting.count) {
+                $(".goods-page-next").removeClass("goods-page-border").unbind("click").bind("click", innerHelper.clickNextEvent);
+            }
+            innerHelper.releasePageEvent();
+        },
+        clickNextEvent: function () {
+            var index = currentPage - 1;
+            $(".goods-page:eq(" + index + ")").removeClass("current-page").unbind("click").bind("click", innerHelper.clickPageEvent);
+            if (currentPage < pageSetting.count) {
+                currentPage = currentPage + 1;
+            }
+            if (currentPage !== 1) {
+                $(".goods-page-previous").removeClass("goods-page-border").unbind("click").bind("click", innerHelper.clickPreviousEvent);
+            }
+            if (currentPage !== pageSetting.count) {
+                $(".goods-page-next").removeClass("goods-page-border").unbind("click").bind("click", innerHelper.clickNextEvent);
+            }
+            innerHelper.releasePageEvent();
+        },
+        releasePageEvent: function () {
+            var index = currentPage - 1;
+            $(".goods-page:eq(" + index + ")").addClass("current-page").unbind("click");
+            if (currentPage === 1) {
+                $(".goods-page-previous").addClass("goods-page-border").unbind("click");
+            }
+            if (currentPage === pageSetting.count) {
+                $(".goods-page-next").addClass("goods-page-border").unbind("click");
+            }
         },
         nextPageEvent: function () {
             var left = new Number($(this).attr("data-left"));
@@ -153,5 +207,9 @@ var GoodsList = function (options) {
             $(".goods-more-previous").unbind("click").bind("click", innerHelper.previousPageEvent);
             $(".goods-more-next").unbind("click").bind("click", innerHelper.nextPageEvent);
         },
+        setCurrentPage: function (currentPage) {
+            $(pageSetting.currentPageElement).val(currentPage);
+        },
     };
 }
+var goodsList = undefined;

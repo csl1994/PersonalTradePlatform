@@ -39,4 +39,16 @@
             <tx:method name="*"/>
         </tx:attributes>
     </tx:advice>
+     <!--邮件-->
+    <bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host"><value>smtp.163.com</value></property>
+        <property name="username"><value>18840824441@163.com</value></property>
+        <property name="password"><value>csl1936902534</value></property>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.timeout">25000</prop>
+            </props>
+        </property>
+    </bean>
 </beans>

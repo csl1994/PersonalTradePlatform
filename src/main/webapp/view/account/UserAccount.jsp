@@ -38,11 +38,11 @@
         </div>
         <div class="user-information">
             <input type="password" class="hide"/>
-            <input type="password" placeholder="设置密码"/>
+            <input type="password" placeholder="设置密码(至少六位)"/>
         </div>
         <div class="user-information">
-            <input type="text" class="validateInput" id="registerValidate" placeholder="验证码"/>
-            <a id="validateImage" class="a-button validateImage"><img src="/validateCode/1491486765268.PNG" alt="validate"/></a>
+            <input type="text" class="validate-input" id="registerValidate" placeholder="验证码"/>
+            <a id="validateImage" class="a-button validate-a"></a>
         </div>
         <div class="user-operation">
             <input type="button" id="register" class="user-login" value="注册"/>
@@ -62,12 +62,34 @@
             <input type="password" placeholder="设置密码"/>
         </div>
         <div class="user-information">
-            <input type="text" class="validateInput" id="forgetValidate" placeholder="验证码"/>
-            <a id="getValidateCode" class="a-button validateImage">获取验证码</a>
+            <input type="text" class="validate-input" id="forgetValidate" placeholder="验证码"/>
+            <a id="sendValidateCode" class="a-button validate-a">发送验证码至邮箱</a>
         </div>
         <div class="user-operation">
-            <input type="button" id="confirm" class="user-login" value="确认"/>
+            <label for="forgetConfirm" class="hide">button</label>
+            <input type="button" id="forgetConfirm" class="user-login" value="确认"/>
         </div>
     </div>
 </form>
-<script src="script/account/UserAccount.js?v=98"></script>
+<form id="userInformation" class="user-dialog hide">
+    <div class="user-title">账户信息</div>
+    <div class="user-account">
+        <div class="user-information">
+            <label for="userName" class="hide">name</label>
+            <input type="text" id="userName" placeholder="用户名"/>
+        </div>
+        <div class="user-information">
+            <label for="userTelephone" class="hide">telephone</label>
+            <input type="text" id="userTelephone" placeholder="手机"/>
+        </div>
+        <div class="user-information">
+            <label for="userRegion" class="hide">region</label>
+            <input type="text" id="userRegion" placeholder="地区"/>
+        </div>
+        <div class="user-operation">
+            <label for="userConfirm" class="hide">button</label>
+            <input type="button" id="userConfirm" class="user-login" value="确认"/>
+        </div>
+    </div>
+</form>
+<script src="script/account/UserAccount.js?v=12"></script>

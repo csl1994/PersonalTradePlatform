@@ -1,11 +1,13 @@
 package com.csl.utility;
 
 
+import com.csl.domain.ValidateCodeMap;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.nio.Buffer;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -15,9 +17,7 @@ import java.util.Random;
 public class ValidateCode {
     private static ValidateCode ourInstance;
 
-    private static String validateCode;
-
-    private static final String RAND_STRING = "0123456789abcdefghijklmnopqrstuvwxyz";
+    private static final String RAND_STRING = "23456789abcdefghjklmnpqrstuvwxyz";
 
     private static final int WIDTH = 100;//图片宽
 
@@ -30,6 +30,10 @@ public class ValidateCode {
     private static final float NOISE_RATE = 0.05f;//噪点率
 
     private static final int IMAGE_COUNT = 20;
+
+    private static final String fileName = "D:/project/PersonalTradePlatform/src/main/webapp/validateCode/";
+
+    private static ArrayList<ValidateCodeMap> validateMapList = new ArrayList<ValidateCodeMap>();
 
     private static Random random = new Random();
 
@@ -59,7 +63,6 @@ public class ValidateCode {
             graphics.drawString(item, 20 * i, 25);
             result += item;
         }
-        validateCode = result;
     }
 
     private static void drawLine(Graphics2D graphics) {
@@ -93,7 +96,7 @@ public class ValidateCode {
         return color;
     }
 
-    public static BufferedImage getImage() {
+    private static BufferedImage getImage() {
         BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_3BYTE_BGR);
         Graphics2D graphics = image.createGraphics();
         graphics.setFont(new Font("Algerian", Font.ITALIC, 30));
@@ -105,15 +108,31 @@ public class ValidateCode {
         return image;
     }
 
-    public static String generateImages() {
+    private static String generateImages() {
         BufferedImage image = getImage();
         long name = new Date().getTime();
         try {
-            ImageIO.write(image, "PNG", new File("D:/project/PersonalTradePlatform/src/main/webapp/validateCode/" + name + ".PNG"));
+            ImageIO.write(image, "PNG", new File(fileName + name + ".PNG"));
         } catch (Exception exception) {
             exception.printStackTrace();
         }
         return name + "";
+    }
+
+    public static ArrayList<ValidateCodeMap> getValidateMap() {
+        if (validateMapList != null && validateMapList.size() == 0) {
+            validateMapList.add(new ValidateCodeMap("1491912906004", "8l2a"));
+            validateMapList.add(new ValidateCodeMap("1491912909848", "3dlk"));
+            validateMapList.add(new ValidateCodeMap("1491912912614", "hpjk"));
+            validateMapList.add(new ValidateCodeMap("1491912915614", "636n"));
+            validateMapList.add(new ValidateCodeMap("1491912919031", "r7wy"));
+            validateMapList.add(new ValidateCodeMap("1491912922031", "ulzj"));
+            validateMapList.add(new ValidateCodeMap("1491912924847", "9l5f"));
+            validateMapList.add(new ValidateCodeMap("1491912928166", "64jf"));
+            validateMapList.add(new ValidateCodeMap("1491912931287", "u4pc"));
+            validateMapList.add(new ValidateCodeMap("1491912933999", "5vcm"));
+        }
+        return validateMapList;
     }
 
     public static ValidateCode getInstance() {
@@ -125,12 +144,5 @@ public class ValidateCode {
             }
         }
         return ourInstance;
-    }
-
-    public static String getValidateCode() {
-        if (validateCode != null && validateCode != "") {
-            return validateCode;
-        }
-        return "";
     }
 }

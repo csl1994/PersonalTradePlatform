@@ -47,6 +47,10 @@ public class UserServiceImpl implements IUserService {
         return this.userDao.checkEmail(email) <= 0;
     }
 
+    public Boolean checkName(String name) {
+        return this.userDao.checkName(name) <= 0;
+    }
+
     public Boolean checkTelephone(String telephone) {
         return this.userDao.checkTelephone(telephone) <= 0;
     }

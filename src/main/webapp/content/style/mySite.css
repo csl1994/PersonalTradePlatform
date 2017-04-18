@@ -275,6 +275,22 @@ p {
     border: solid 1px #c35ac1;
 }
 
+.current-page {
+    color: #999999 !important;
+}
+
+.current-page:hover {
+    border: solid 1px #ffffff !important;
+}
+
+.goods-page-border {
+    color: #999999 !important;
+}
+
+.goods-page-border:hover {
+    border: solid 1px #ffffff !important;
+}
+
 .goods-watermark {
     position: absolute;
     top: 1px;
@@ -373,12 +389,36 @@ p {
     color: #c35ac1;
 }
 
-.validateInput{
+.validate-input {
     width: 150px !important;
+    margin-left: 60px;
 }
 
-.validateImage{
+.validate-a {
     display: inline !important;
     width: 100px;
     height: 35px;
+    float: right;
+    margin-right: 60px;
+    cursor: pointer;
+    font-size: 10px;
+}
+
+.validate-img {
+    width: 95px;
+}
+
+.account-information {
+    top: 50%;
+    left: 50%;
+    margin: -141px 0 0 -201px;
+    width: 600px;
+    height: 600px;
+    position: fixed;
+    border: 2px solid #c35ac1;
+    text-align: center;
+    font-size: 14px;
+    background-color: #ffffff;
+    overflow: hidden;
+    z-index: 102400;
 }
