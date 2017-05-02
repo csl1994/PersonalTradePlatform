@@ -10,6 +10,7 @@ function HomePage() {
     var page = $("#page").val();
     var count = 16;
     var ajax = new AjaxMethod();
+    var href = new HrefMethod();
     var innerHelper = {
         initPage: function () {
             innerHelper.updateValue();
@@ -43,6 +44,20 @@ function HomePage() {
                 }
 
             });
+            $("#goodsList").unbind("click").bind("click", function (event) {
+                var element = event.toElement;
+                var elementClass = event.toElement.className;
+                element = $(element).parent(".goods-container");
+                if (element || elementClass === "goods-container") {
+                    var goodsID = $(element).find("input").first().val();
+                    innerHelper.updateValue();
+                    if (!(userID && userPassword)) {
+                        userID = "";
+                    }
+                    href.viewGoodsSpecific(goodsID, userID);
+                }
+                return false;
+            });
         },
         getInformation: function () {
             if (userID && userPassword) {
@@ -55,9 +70,7 @@ function HomePage() {
         },
         getPageInformation: function () {
             innerHelper.updateValue();
-            if (userID && userPassword) {
-                userID = $.cookie("userID");
-            } else {
+            if (!(userID && userPassword)) {
                 userID = "";
             }
             var defer = ajax.getPage(userID, region, goodsKind);

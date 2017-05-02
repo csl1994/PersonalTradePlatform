@@ -49,8 +49,8 @@ public class GoodsDaoImpl implements IGoodsDao {
     }
 
     public int removeAttention(final String userID, final String goodsID) {
-        final String sql = " DELETE FROM ATTENTION WHERE USERID=:USERID AND GOODSID=:GOODSID ";
-        return this.namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValue("USERID", userID).addValue("GOODSID", goodsID));
+        final String sql = " DELETE FROM ATTENTION WHERE USERID='" + userID + "' AND GOODSID='" + goodsID + "' ";
+        return this.namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource());
     }
 
     public int isAttendByUser(final String userID, final String goodsID) {
@@ -155,14 +155,21 @@ public class GoodsDaoImpl implements IGoodsDao {
     }
 
     public List<GoodsDO> getByAttentionID(final String ID) {
-        String sql = " SELECT GOODS.GOODSID,NAME,DESCRIPTION,PRICE,KIND,STATUS,ATTTENTIONDEGREE,DATETIME,URL FROM "
-                + " ATTENTION LEFT JOIN GOODS LEFT JOIN IMAGE WHERE USERID:=ID ";
+        String sql = " SELECT GOODS.ID,NAME,DESCRIPTION,PRICE,KIND,STATUS,ATTENTIONDEGREE,DATETIME,URL "
+                + " FROM  GOODS LEFT JOIN ATTENTION ON ATTENTION.GOODSID=GOODS.ID LEFT JOIN IMAGE ON GOODS.ID=IMAGE.GOODSID "
+                + " WHERE ATTENTION.USERID=:ID ORDER BY GOODS.DATETIME DESC ";
         return this.executeSelect(sql, new MapSqlParameterSource().addValue("ID", ID));
     }
 
     public List<GoodsDO> getAll() {
         final String sql = " SELECT ID,NAME,DESCRIPTION,PRICE,KIND,STATUS,ATTTENTIONDEGREE,DATETIME,URL FROM "
                 + " GOODS LEFT JOIN IMAGE ORDER BY DATETIME DESC ";
+        return this.executeSelect(sql);
+    }
+
+    public List<GoodsDO> getTop5() {
+        final String sql = " SELECT ID,NAME,DESCRIPTION,PRICE,KIND,STATUS,ATTENTIONDEGREE,DATETIME,URL FROM " +
+                "GOODS LEFT JOIN IMAGE ON ID=GOODSID ORDER BY ATTENTIONDEGREE DESC, DATETIME DESC LIMIT 0,5 ";
         return this.executeSelect(sql);
     }
 

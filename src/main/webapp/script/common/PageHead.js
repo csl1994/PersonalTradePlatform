@@ -2,6 +2,7 @@
  * Created by csl on 2017/3/17.
  */
 function PageHead() {
+    var href = new HrefMethod();
     var innerHelper = {
         buildEvent: function () {
             $(".page-head").bind("click", function (event) {
@@ -12,6 +13,7 @@ function PageHead() {
                 var userPassword = $.cookie("userPassword");
                 switch (elementID) {
                     case "buttonHome":
+                        href.goHome();
                         break;
                     case "buttonRegion":
                         $(element).children(".region-image").first()
@@ -20,7 +22,7 @@ function PageHead() {
                         break;
                     case "buttonCollection":
                         if (userID && userPassword) {
-                            //csl todo
+                            href.viewCollection();
                         } else {
                             alert("请先登入");
                         }
@@ -37,11 +39,15 @@ function PageHead() {
                         break;
                     case "buttonLogin":
                         $("body").css("overflow", "hidden");
-                        $(".backdrop").show();
+                        $("#userBackground").show();
                         $("#loginForm").show();
                         break;
-                    case "user":
-                        //csl todo
+                    case "record":
+                        break;
+                    case "exit":
+                        $.cookie("userPassword", "");
+                        href.goHome();
+                        href.goHome();
                         break;
                     default:
                         break;
@@ -58,10 +64,24 @@ function PageHead() {
                 $("#user").text("").text(userName);
             }
         },
+        buildUserEvent: function () {
+            $(".pop-menu").unbind("mouseover mouseout").bind("mouseover mouseout", function (event) {
+                switch (event.type) {
+                    case "mouseover":
+                        $(".sub-menu").first().show();
+                        break;
+                    case "mouseout":
+                        $(".sub-menu").first().hide();
+                        break;
+                }
+                return false;
+            });
+        },
     };
     return {
         init: function () {
             innerHelper.buildEvent();
+            innerHelper.buildUserEvent();
             innerHelper.checkUser();
         },
     };

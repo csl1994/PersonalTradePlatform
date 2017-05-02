@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div class="backdrop hide"></div>
+<div class="backdrop hide" id="userBackground"></div>
 <form id="loginForm" class="user-dialog hide">
     <div class="user-title">登入系统</div>
     <div id="loginClose" class="user-close">×</div>
@@ -23,8 +23,8 @@
             <input type="button" id="login" class="user-login" value="登入"/>
         </div>
         <div class="user-operation">
-            <input type="button" id="registerAccount" class="user-register" value="注册账号"/>
-            <input type="button" id="forgetPassword" class="user-forget" value="忘记密码"/>
+            <input type="button" id="registerAccount" class="user-operation-button" value="注册账号"/>
+            <input type="button" id="forgetPassword" class="user-operation-button" value="忘记密码"/>
         </div>
     </div>
 </form>
@@ -92,4 +92,4 @@
         </div>
     </div>
 </form>
-<script src="script/account/UserAccount.js?v=12"></script>
+<script src="/script/account/UserAccount.js?v=<%=new Date().getTime()%>"></script>

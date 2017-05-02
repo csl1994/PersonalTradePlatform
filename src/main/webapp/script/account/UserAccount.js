@@ -16,7 +16,7 @@ function UserAccount() {
                 var elementID = $(element).attr("id");
                 switch (elementID) {
                     case "loginClose":
-                        $(".backdrop").hide();
+                        $("#userBackground").hide();
                         $("#loginForm").hide();
                         $("body").css("overflow", "auto");
                         break;
@@ -30,7 +30,7 @@ function UserAccount() {
                         innerHelper.generateValidateCode();
                         break;
                     case "registerClose":
-                        $(".backdrop").hide();
+                        $("#userBackground").hide();
                         $("#registerForm").hide();
                         $("body").css("overflow", "auto");
                         break;
@@ -42,7 +42,7 @@ function UserAccount() {
                         $("#forgetForm").show();
                         break;
                     case "forgetClose":
-                        $(".backdrop").hide();
+                        $("#userBackground").hide();
                         $("#forgetForm").hide();
                         $("body").css("overflow", "auto");
                         break;
@@ -88,11 +88,12 @@ function UserAccount() {
             $.cookie("userID", data.id, {expires: 7, path: "/"});
             $.cookie("userPassword", data.password, {path: "/"});
             $("#buttonLogin").parent("div").hide();
-            $("#user").parent("div").show();
-            $("#user").text("").text(data.name);
             $(".backdrop").hide();
             $(".user-dialog").hide();
             $("body").css("overflow", "auto");
+            $("#user").parent("div").show();
+            $("#user").text("").text(data.name);
+            userOperation.update();
             home.reLoad();
         },
         generateValidateCode: function () {
@@ -210,7 +211,7 @@ function UserAccount() {
             if (acceptEmail !== userEmail) {
                 alert("邮箱不一致，请重新发送");
             }
-            else{
+            else {
                 var validateCode = $.trim($("#forgetValidate").val());
                 var defer = ajax.checkValidateCode(validateCode.toLowerCase(), 2);
                 defer.done(innerHelper.checkForgetEmail).fail();

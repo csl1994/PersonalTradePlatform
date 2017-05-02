@@ -17,7 +17,7 @@ public interface IGoodsService {
 
     boolean update(GoodsDO goodsDO);
 
-    GoodsDO getByID(String ID);
+    GoodsDO getByID(String goodsID, String userID);
 
     List<GoodsDO> getGoods(String userID, String region, GoodsKind kind, SortBasis sortBasis, int page);
 

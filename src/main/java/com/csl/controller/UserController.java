@@ -144,4 +144,10 @@ public class UserController {
         }
         return null;
     }
+
+    @RequestMapping(value = "/getOwner", method = RequestMethod.GET)
+    @ResponseBody
+    public UserDO getOwner(String goodsID) {
+        return this.userService.getOwner(goodsID);
+    }
 }

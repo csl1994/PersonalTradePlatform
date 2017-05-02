@@ -54,4 +54,8 @@ public class UserServiceImpl implements IUserService {
     public Boolean checkTelephone(String telephone) {
         return this.userDao.checkTelephone(telephone) <= 0;
     }
+
+    public UserDO getOwner(String goodsID) {
+        return this.userDao.getOwner(goodsID);
+    }
 }

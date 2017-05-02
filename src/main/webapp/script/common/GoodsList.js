@@ -50,6 +50,7 @@ var GoodsList = function (options) {
                     htmlString += "<div class='goods-list-row'>";
                 }
                 htmlString += "<div class='goods-container'>";
+                htmlString += "<input type='hidden' value='" + element.id + "'/>";
                 htmlString += "<div class='goods-watermark'>" + element.attentionDegree + "<span>人收藏</span></div>";
                 htmlString += "<img src='" + element.imageUrl + "' alt='image' class='goods-image'/>";
                 htmlString += "<div class='goods-information'>";

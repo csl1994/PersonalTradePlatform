@@ -10,8 +10,8 @@
 <input type="hidden" id="region" value=""/>
 <div class="page-head">
     <div class="home-button-div">
-        <a class="a-button home-button" id="buttonHome" href="javascript:void(0)">
-            <img src="/content/image/home.png" alt="主页"/>
+        <a class="a-button home-button" href="javascript:void(0)">
+            <img src="/content/image/home.png" id="buttonHome" alt="主页"/>
         </a>
     </div>
     <div class="head-button-div">
@@ -32,8 +32,14 @@
     <div class="head-button-div">
         <a class="a-button head-button" id="buttonLogin" href="javascript:void(0)">登入</a>
     </div>
-    <div class="hide">
-        <a class="a-button head-button" id="user" href="javascript:void(0)">user</a>
+    <div class="head-button-div">
+        <div class="pop-menu hide">
+            <a class="a-button head-button" id="user" href="javascript:void(0)">user</a>
+            <div class="sub-menu hide">
+                <a class="a-button menu-a" id="record">购买记录</a>
+                <a class="a-button menu-a" id="exit">退出系统</a>
+            </div>
+        </div>
     </div>
 </div>
-<script src="script/common/PageHead.js?v=23"></script>
+<script src="/script/common/PageHead.js?v=<%=new Date().getTime()%>"></script>

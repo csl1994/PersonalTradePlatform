@@ -75,7 +75,7 @@ public class UserDaoImpl implements IUserDao {
         return userDOList;
     }
 
-    public UserDO getByEmail(final String email){
+    public UserDO getByEmail(final String email) {
         final String sql = " SELECT ID,PASSWORD,EMAIL,NAME,TELEPHONE,REGION,CREDIT FROM USER WHERE EMAIL=:email";
         final UserDO userDO = new UserDO();
         this.namedParameterJdbcTemplate.query(sql, new MapSqlParameterSource().addValue("email", email),
@@ -93,10 +93,10 @@ public class UserDaoImpl implements IUserDao {
         return userDO;
     }
 
-    public int updatePassword(final String email,final String password) {
+    public int updatePassword(final String email, final String password) {
         final String sql = " UPDATE USER SET PASSWORD=:password WHERE EMAIL=:email ";
         return this.namedParameterJdbcTemplate.update(sql,
-                new MapSqlParameterSource().addValue("password",password).addValue("email",email));
+                new MapSqlParameterSource().addValue("password", password).addValue("email", email));
     }
 
     public int checkEmail(String email) {
@@ -111,7 +111,7 @@ public class UserDaoImpl implements IUserDao {
         return ID.size();
     }
 
-    public int checkName(final String name){
+    public int checkName(final String name) {
         final String sql = " SELECT ID FROM USER WHERE NAME=:name ";
         final List<String> ID = new ArrayList<String>();
         this.namedParameterJdbcTemplate.query(sql, new MapSqlParameterSource().addValue("name", name),
@@ -133,5 +133,23 @@ public class UserDaoImpl implements IUserDao {
                     }
                 });
         return ID.size();
+    }
+
+    public UserDO getOwner(String goodsID) {
+        final String sql = " SELECT ID,PASSWORD,EMAIL,NAME,TELEPHONE,REGION,CREDIT FROM OWNER LEFT JOIN USER ON OWNER.USERID=ID WHERE GOODSID=:GOODSID ";
+        final UserDO userDO = new UserDO();
+        this.namedParameterJdbcTemplate.query(sql, new MapSqlParameterSource().addValue("GOODSID", goodsID),
+                new RowCallbackHandler() {
+                    public void processRow(ResultSet resultSet) throws SQLException {
+                        userDO.setID(resultSet.getString("ID"));
+                        userDO.setPassword(resultSet.getString("PASSWORD"));
+                        userDO.setEmail(resultSet.getString("EMAIL"));
+                        userDO.setName(resultSet.getString("NAME"));
+                        userDO.setTelephone(resultSet.getString("TELEPHONE"));
+                        userDO.setRegion(resultSet.getString("REGION"));
+                        userDO.setCredit(resultSet.getInt("CREDIT"));
+                    }
+                });
+        return userDO;
     }
 }

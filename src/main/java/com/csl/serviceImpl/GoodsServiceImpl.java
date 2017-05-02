@@ -29,8 +29,16 @@ public class GoodsServiceImpl implements IGoodsService {
         return this.goodsDao.update(goodsDO) > 0;
     }
 
-    public GoodsDO getByID(String ID) {
-        return this.goodsDao.find(ID);
+    public GoodsDO getByID(String goodsID, String userID) {
+        GoodsDO goodsDO = this.goodsDao.find(goodsID);
+        if (goodsDO != null) {
+            goodsDO.setCurrentUserAttend(this.isAttendByUser(userID, goodsID));
+        }
+        return goodsDO;
+    }
+
+    public List<GoodsDO> getTop5() {
+        return this.goodsDao.getTop5();
     }
 
     public List<GoodsDO> getGoods(String userID, String region, GoodsKind kind, SortBasis sortBasis, int page) {
@@ -87,6 +95,9 @@ public class GoodsServiceImpl implements IGoodsService {
                 break;
             default:
                 break;
+        }
+        for (int item = goodsDOList.size() - 1; item >= 0; item--) {
+            goodsDOList.get(item).setCurrentUserAttend(this.isAttendByUser(ID, goodsDOList.get(item).getID()));
         }
         return goodsDOList;
     }

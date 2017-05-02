@@ -13,7 +13,7 @@ function AjaxMethod() {
             }
             return $.ajax({
                 type: "GET",
-                url: "home/getGoodsList.html",
+                url: "/home/getGoodsList.html",
                 data: options,
                 dataType: "json",
             });
@@ -26,7 +26,7 @@ function AjaxMethod() {
             }
             return $.ajax({
                 type: "GET",
-                url: "home/getCount.html",
+                url: "/home/getCount.html",
                 data: options,
                 dataType: "json",
             });
@@ -37,7 +37,7 @@ function AjaxMethod() {
             };
             return $.ajax({
                 type: "GET",
-                url: "user/getUserByEmail.html",
+                url: "/user/getUserByEmail.html",
                 data: options,
                 dataType: "json",
             });
@@ -48,7 +48,7 @@ function AjaxMethod() {
             };
             return $.ajax({
                 type: "GET",
-                url: "user/getUserByID.html",
+                url: "/user/getUserByID.html",
                 data: options,
                 dataType: "json",
             });
@@ -60,7 +60,7 @@ function AjaxMethod() {
             };
             return $.ajax({
                 type: "GET",
-                url: "user/validateUser.html",
+                url: "/user/validateUser.html",
                 data: options,
                 dataType: "text",
             });
@@ -68,7 +68,7 @@ function AjaxMethod() {
         getValidateCode: function () {
             return $.ajax({
                 type: "GET",
-                url: "user/getValidateCode.html",
+                url: "/user/getValidateCode.html",
                 data: {},
                 dataType: "json",
             });
@@ -79,7 +79,7 @@ function AjaxMethod() {
             };
             return $.ajax({
                 type: "GET",
-                url: "user/sendValidateCode.html",
+                url: "/user/sendValidateCode.html",
                 data: options,
                 dataType: "text",
             });
@@ -91,7 +91,7 @@ function AjaxMethod() {
             };
             return $.ajax({
                 type: "GET",
-                url: "user/checkValidateCode.html",
+                url: "/user/checkValidateCode.html",
                 data: options,
                 dataType: "text",
             });
@@ -102,7 +102,7 @@ function AjaxMethod() {
             };
             return $.ajax({
                 type: "GET",
-                url: "user/checkEmail.html",
+                url: "/user/checkEmail.html",
                 data: options,
                 dataType: "text",
             });
@@ -113,7 +113,7 @@ function AjaxMethod() {
             };
             return $.ajax({
                 type: "GET",
-                url: "user/checkName.html",
+                url: "/user/checkName.html",
                 data: options,
                 dataType: "text",
             });
@@ -124,7 +124,7 @@ function AjaxMethod() {
             };
             return $.ajax({
                 type: "GET",
-                url: "user/checkTelephone.html",
+                url: "/user/checkTelephone.html",
                 data: options,
                 dataType: "text",
             });
@@ -139,7 +139,7 @@ function AjaxMethod() {
             };
             return $.ajax({
                 type: "POST",
-                url: "user/registerAccount.html",
+                url: "/user/registerAccount.html",
                 data: options,
                 dataType: "json",
             });
@@ -151,10 +151,53 @@ function AjaxMethod() {
             };
             return $.ajax({
                 type: "POST",
-                url: "user/updateAccount.html",
+                url: "/user/updateAccount.html",
                 data: options,
                 dataType: "json",
             })
-        }
+        },
+        getOwner: function (goodsID) {
+            var options = {
+                goodsID: goodsID,
+            };
+            return $.ajax({
+                type: "GET",
+                url: "/user/getOwner.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        attentionGoods: function (goodsID, userID, isAttention) {
+            var options = {
+                goodsID: goodsID,
+                userID: userID,
+                isAttention: isAttention,
+            };
+            return $.ajax({
+                type: "POST",
+                url: "/goods/attentionGoods.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        getTop5: function () {
+            return $.ajax({
+                type: "GET",
+                url: "/goods/getTop5.html",
+                data: {},
+                dataType: "json",
+            });
+        },
+        getCollection: function (userID) {
+            var options = {
+                userID: userID,
+            };
+            return $.ajax({
+                type: "GET",
+                url: "/goods/getCollection.html",
+                data: options,
+                dataType: "json",
+            });
+        },
     }
 }
