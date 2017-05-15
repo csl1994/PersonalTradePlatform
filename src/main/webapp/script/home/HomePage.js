@@ -2,6 +2,7 @@
  * Created by csl on 2017/3/21.
  */
 function HomePage() {
+    var goodsList = undefined;
     var userID = $.cookie("userID");
     var userPassword = $.cookie("userPassword");
     var region = $("#region").val();
@@ -42,7 +43,6 @@ function HomePage() {
                     innerHelper.updateValue();
                     innerHelper.getInformation();
                 }
-
             });
             $("#goodsList").unbind("click").bind("click", function (event) {
                 var element = event.toElement;

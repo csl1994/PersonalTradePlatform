@@ -25,8 +25,16 @@ public class GoodsServiceImpl implements IGoodsService {
         return this.goodsDao.remove(ID) > 0;
     }
 
+    public boolean removeSoldGoods(String ID) {
+        return this.goodsDao.removeSoldGoods(ID) > 0;
+    }
+
     public boolean update(GoodsDO goodsDO) {
         return this.goodsDao.update(goodsDO) > 0;
+    }
+
+    public GoodsDO find(String goodsID) {
+        return this.goodsDao.find(goodsID);
     }
 
     public GoodsDO getByID(String goodsID, String userID) {
@@ -37,8 +45,8 @@ public class GoodsServiceImpl implements IGoodsService {
         return goodsDO;
     }
 
-    public List<GoodsDO> getTop5() {
-        return this.goodsDao.getTop5();
+    public List<GoodsDO> getTop5(String userID) {
+        return this.goodsDao.getTop5(userID);
     }
 
     public List<GoodsDO> getGoods(String userID, String region, GoodsKind kind, SortBasis sortBasis, int page) {
@@ -116,5 +124,9 @@ public class GoodsServiceImpl implements IGoodsService {
 
     public int getCount(String userID, String region, GoodsKind goodsKind) {
         return this.goodsDao.getCount(userID, region, goodsKind);
+    }
+
+    public boolean updateStatus(String goodsID, GoodsStatus status) {
+        return this.goodsDao.updateStatus(goodsID, status.name()) > 0;
     }
 }

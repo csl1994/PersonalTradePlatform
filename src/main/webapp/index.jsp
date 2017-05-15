@@ -70,6 +70,12 @@
     <div class="goods-page-list"></div>
     <br/>
     <br/>
+    <input id="test" type="button" value="test" />
+    <script>
+        $("#test").click(function () {
+            window.open("/home/test.html");
+        });
+    </script>
     <br/>
     <br/>
 </div>

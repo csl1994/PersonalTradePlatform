@@ -89,7 +89,8 @@ function Carousel() {
             $(".index-list").find("li").removeClass("index-on").eq(index).addClass("index-on");
         },
         getTop5: function () {
-            var defer = ajax.getTop5();
+            var userID = $.cookie("userID");
+            var defer = ajax.getTop5(userID == null ? "" : userID);
             defer.done(innerHelper.getSuccess).fail();
         },
         getSuccess: function (data) {

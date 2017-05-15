@@ -87,6 +87,12 @@ ul, li {
     overflow: hidden;
 }
 
+.content-title {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border-bottom: 2px solid #c35ac1;
+}
+
 .goods-filter {
     width: 100%;
     height: 30px;
@@ -457,6 +463,16 @@ ul, li {
     width: 60px;
 }
 
+.new-mark {
+    position: absolute;
+    color: #ffffff;
+    font-size: 5px;
+    left: 30px;
+    top: 60px;
+    background-color: #ff0000;
+    line-height: 10px ! important;
+}
+
 .triangle {
     border-style: solid;
     border-color: rgba(195, 90, 193, 0) rgba(195, 90, 193, 0) #ffffff rgba(195, 90, 193, 0);
@@ -489,13 +505,18 @@ ul, li {
     position: relative;
     float: left;
     width: 372px;
-    height: auto;
+    height: 300px;
     padding: 2px;
     margin-left: 20px;
 }
 
 .image-container > img {
     height: 300px;
+}
+
+.image-container-img {
+    height: 300px;
+    width: 372px;
 }
 
 .specific-operation-container {
@@ -695,13 +716,171 @@ img.next {
     color: #c35ac1 !important;
 }
 
-.message-name{
+.message-name {
     float: left;
     width: 50px;
     font-size: 13px;
     margin-left: 90px;
 }
 
-.message-content{
+.message-content {
     text-align: initial;
+}
+
+.goods-brief {
+    float: right;
+    padding: 5px 2px;
+    font-size: 13px;
+    height: 100px;
+    width: 960px;
+    overflow-y: scroll;
+}
+
+.goods-attribute {
+    font-size: 12px;
+}
+
+.filePath {
+    position: absolute;
+    height: 300px;
+    width: 372px;
+    opacity: 0;
+}
+
+.goods-close {
+    position: absolute;
+    color: #c35ac1;
+    z-index: 1000;
+    left: 360px;
+    cursor: pointer;
+}
+
+.input-large {
+    width: 200px;
+    font-size: 12px;
+}
+
+.input-medium {
+    width: 120px;
+}
+
+.label-small {
+    font-size: 12px;
+}
+
+.input-small {
+    width: 100px;
+    font-size: 12px;
+}
+
+.must-mark {
+    color: #ff0000;
+}
+
+#commit {
+    height: 30px;
+    width: 200px;
+    margin-top: 5px;
+    margin-left: 250px;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #c35ac1;
+    border: 0px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+#delete {
+    height: 30px;
+    width: 200px;
+    margin-top: 5px;
+    margin-left: 100px;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #c35ac1;
+    border: 0px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+#add {
+    height: 30px;
+    width: 200px;
+    margin-top: 5px;
+    margin-left: 400px;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #c35ac1;
+    border: 0px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.order-list-container {
+    top: 35%;
+    left: 50%;
+    margin: -141px 0 0 -201px;
+    width: 400px;
+    height: 500px;
+    position: fixed;
+    border: 2px solid #c35ac1;
+    text-align: center;
+    font-size: 14px;
+    background-color: #ffffff;
+    overflow: hidden;
+    z-index: 102400;
+}
+
+.order-list {
+    height: 430px;
+    margin-top: 20px;
+    overflow-y: auto;
+}
+
+.order-title {
+    margin-top: 5px;
+    color: #111111;
+    font-size: 20px;
+}
+
+.order-item {
+    height: 40px;
+    padding: 2px 10px;
+}
+
+.order-item:hover{
+    background-color: rgba(204, 204, 204, 0.25);
+}
+
+.order-goods {
+    float: left;
+    font-size: 15px;
+    width: 120px;
+    text-align: left;
+}
+
+.order-seller {
+    float: left;
+    font-size: 13px;
+    position: relative;
+    top: 3px;
+    left: 20px;
+    width: 160px;
+    text-align: left;
+}
+
+.order-time {
+    position: relative;
+    top: 20px;
+    left: -295px;
+    font-size: 10px;
+}
+
+.order-operation {
+    float: left;
+    position: relative;
+    top: -5px;
+    left: 90px;
+    color: #ff0000;
+    cursor: pointer;
 }

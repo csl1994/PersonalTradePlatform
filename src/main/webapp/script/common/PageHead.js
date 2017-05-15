@@ -3,6 +3,7 @@
  */
 function PageHead() {
     var href = new HrefMethod();
+    var ajax = new AjaxMethod();
     var innerHelper = {
         buildEvent: function () {
             $(".page-head").bind("click", function (event) {
@@ -29,7 +30,7 @@ function PageHead() {
                         break;
                     case "buttonStore":
                         if (userID && userPassword) {
-                            //csl todo
+                            href.viewRepository();
                         } else {
                             alert("请先登入");
                         }
@@ -41,8 +42,21 @@ function PageHead() {
                         $("body").css("overflow", "hidden");
                         $("#userBackground").show();
                         $("#loginForm").show();
+                        innerHelper.getSellRecordList();
                         break;
-                    case "record":
+                    case "buyRecord":
+                        $("body").css("overflow", "hidden");
+                        $("#orderBackground").show();
+                        $("#buyRecordList").show();
+                        innerHelper.getBuyRecordList();
+                        break;
+                    case "sellFRecord":
+                        $("body").css("overflow", "hidden");
+                        $("#orderBackground").show();
+                        $("#sellRecordList").show();
+                        break;
+                    case "addGoods":
+                        href.createGoods();
                         break;
                     case "exit":
                         $.cookie("userPassword", "");
@@ -62,6 +76,13 @@ function PageHead() {
                 $("#buttonLogin").parent("div").hide();
                 $("#user").parent("div").show();
                 $("#user").text("").text(userName);
+                var defer = ajax.newOrder(userID);
+                defer.done(innerHelper.updateOrder).fail();
+            }
+        },
+        updateOrder: function (data) {
+            if (data === true) {
+                $("#user").parent().find("div").append("<span class='new-mark'>new</span>");
             }
         },
         buildUserEvent: function () {
@@ -77,6 +98,53 @@ function PageHead() {
                 return false;
             });
         },
+        getBuyRecordList: function () {
+            var defer = ajax.getAllBuyOrder($.cookie("userID"));
+            defer.done(innerHelper.showBuyList).fail();
+        },
+        showBuyList: function (data) {
+            if (data) {
+                var options = {
+                    listElement: $("#buyRecordList").find(".order-list"),
+                    data: data,
+                    kind: 1,
+                }
+                var orders = new OrdersList(options);
+                orders.init();
+                innerHelper.buildOrderEvent();
+            }
+        },
+        getSellRecordList: function () {
+            var defer = ajax.getAllSellOrder($.cookie("userID"));
+            defer.done(innerHelper.showSellList).fail();
+        },
+        showSellList: function (data) {
+            if (data) {
+                var options = {
+                    listElement: $("#sellRecordList").find(".order-list"),
+                    data: data,
+                    kind: 0,
+                }
+                var orders = new OrdersList(options);
+                orders.init();
+                innerHelper.buildOrderEvent();
+            }
+        },
+        buildOrderEvent: function () {
+            $(".order-item").unbind("mouseover mouseout click").bind("mouseover mouseout click", function (event) {
+                var eventType = event.type;
+                switch (eventType) {
+                    case "mouseover":
+                        $(this).find(".order-operation").show();
+                        break;
+                    case "mouseout":
+                        $(this).find(".order-operation").hide();
+                        break;
+                    case "click":
+                        break;
+                }
+            })
+        }
     };
     return {
         init: function () {

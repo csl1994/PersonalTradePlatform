@@ -26,6 +26,7 @@ function GoodsSpecific() {
                 }
             });
             $("#orderGoods").unbind("click").bind("click", function () {
+                $("body").css("overflow", "hidden");
                 $("#ownerBackground").show();
                 $("#goodsOwner").show();
                 innerHelper.getOwner($("#goodsID").val());

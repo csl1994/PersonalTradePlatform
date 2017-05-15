@@ -52,7 +52,7 @@
                 <div class="operation-kind">关注</div>
                 <span class="operation-goods-attention">${goods.attentionDegree}</span>
                 <%
-                    if (goods.getCurrentUserAttend()) {
+                    if (goods.isCurrentUserAttend()) {
                         out.print("<a class='a-button operation-collection js-sub' id='collectionGoods'>收藏-1</a>");
                     } else {
                         out.print("<a class='a-button operation-collection js-add' id='collectionGoods'>收藏+1</a>");
@@ -62,6 +62,7 @@
             <div class="specific-operation">
                 <div class="operation-kind">掌柜</div>
                 <span class="">${user.name}</span>
+                <input type="hidden" value="${user.ID}" id="sellerID" />
             </div>
             <div class="specific-operation">
                 <div class="operation-kind">信誉</div>
@@ -85,11 +86,17 @@
         <div id="parameter" class="hide">
             <div class="specific-operation">
                 <div class="parameter-kind">颜色</div>
-                <span>black</span>
+                <%
+                    if (goods.getColor() == "" || goods.getColor() == null) {
+                        out.print("<span>无</span>");
+                    } else {
+                        out.print("<span>" + goods.getColor() + "</span>");
+                    }
+                %>
             </div>
             <div class="specific-operation">
                 <div class="parameter-kind">尺寸(mm)</div>
-                <span>20*40*60</span>
+                <span>${goods.length}(l)*${goods.width}(w)*${goods.height}(h)</span>
             </div>
             <div class="specific-operation">
                 <div class="parameter-kind">录入日期</div>
@@ -101,15 +108,11 @@
                 %>
             </div>
             <div class="specific-operation">
-                <div class="parameter-kind">购买日期</div>
+                <div class="parameter-kind">生产日期</div>
                 <%
-                    out.print("<span class=\"operation-date\">" + date + "</span>");
-                %>
-            </div>
-            <div class="specific-operation">
-                <div class="parameter-kind">使用期限</div>
-                <%
-                    out.print("<span class=\"operation-date\">" + date + "</span>");
+                    Date createDateTime = new Date(goods.getCreateDate());
+                    String createDate = dateFormat.format(createDateTime);
+                    out.print("<span class=\"operation-date\">" + createDate + "</span>");
                 %>
             </div>
         </div>

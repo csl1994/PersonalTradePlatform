@@ -93,8 +93,17 @@ function UserAccount() {
             $("body").css("overflow", "auto");
             $("#user").parent("div").show();
             $("#user").text("").text(data.name);
-            userOperation.update();
+            innerHelper.updateOrder();
             home.reLoad();
+        },
+        updateOrder: function () {
+            var defer = ajax.newOrder($.cookie("userID"));
+            defer.done(innerHelper.newOrderMark).fail();
+        },
+        newOrderMark: function (data) {
+            if (data === true) {
+                $("#user").parent().find("div").append("<span class='new-mark'>new</span>");
+            }
         },
         generateValidateCode: function () {
             var defer = ajax.getValidateCode();

@@ -4,6 +4,7 @@ import com.csl.domain.GoodsDO;
 import com.csl.domain.GoodsKind;
 import com.csl.domain.SortBasis;
 import com.csl.serviceImpl.GoodsServiceImpl;
+import com.sun.javafx.sg.prism.NGShape;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,5 +49,10 @@ public class HomeController {
 
         }
         return count;
+    }
+
+    @RequestMapping(value = "/test",method = RequestMethod.GET)
+    public ModelAndView test(){
+        return new ModelAndView("websocket");
     }
 }

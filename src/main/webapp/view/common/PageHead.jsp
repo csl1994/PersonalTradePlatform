@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: csl
-  Date: 2017/3/15
-  Time: 10:56
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <input type="hidden" id="userID" value=""/>
 <input type="hidden" id="region" value=""/>
@@ -36,10 +29,14 @@
         <div class="pop-menu hide">
             <a class="a-button head-button" id="user" href="javascript:void(0)">user</a>
             <div class="sub-menu hide">
-                <a class="a-button menu-a" id="record">购买记录</a>
+                <a class="a-button menu-a" id="buyRecord">购买记录</a>
+                <a class="a-button menu-a" id="sellFRecord">销售记录</a>
+                <a class="a-button menu-a" id="addGoods">新增物品</a>
                 <a class="a-button menu-a" id="exit">退出系统</a>
             </div>
         </div>
     </div>
 </div>
+<%@include file="/view/orders/Orders.jsp" %>
 <script src="/script/common/PageHead.js?v=<%=new Date().getTime()%>"></script>
+<script type="text/javascript" src="/script/common/OrdersList.js?version=<%=new Date().getTime()%>"></script>

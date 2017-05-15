@@ -17,11 +17,19 @@ public class OrderDO implements Serializable {
 
     private Long datetime;
 
-    private String comment;
+    private int sellerGrade;
 
-    private int sellerLevel;
+    private int buyerGrade;
 
-    private int bugerLevel;
+    private String sellerStatus;
+
+    private String buyerStatus;
+
+    private String sellerName;
+
+    private String buyerName;
+
+    private String goodsName;
 
     public String getID() {
         return ID;
@@ -63,27 +71,59 @@ public class OrderDO implements Serializable {
         this.datetime = datetime;
     }
 
-    public String getComment() {
-        return comment;
+    public int getSellerGrade() {
+        return sellerGrade;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setSellerGrade(int sellerGrade) {
+        this.sellerGrade = sellerGrade;
     }
 
-    public int getSellerLevel() {
-        return sellerLevel;
+    public int getBuyerGrade() {
+        return buyerGrade;
     }
 
-    public void setSellerLevel(int sellerLevel) {
-        this.sellerLevel = sellerLevel;
+    public void setBuyerGrade(int buyerGrade) {
+        this.buyerGrade = buyerGrade;
     }
 
-    public int getBugerLevel() {
-        return bugerLevel;
+    public String getSellerStatus() {
+        return sellerStatus;
     }
 
-    public void setBugerLevel(int bugerLevel) {
-        this.bugerLevel = bugerLevel;
+    public void setSellerStatus(String sellerStatus) {
+        this.sellerStatus = sellerStatus;
+    }
+
+    public String getBuyerStatus() {
+        return buyerStatus;
+    }
+
+    public void setBuyerStatus(String buyerStatus) {
+        this.buyerStatus = buyerStatus;
+    }
+
+    public String getSellerName() {
+        return sellerName;
+    }
+
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
+    }
+
+    public String getBuyerName() {
+        return buyerName;
+    }
+
+    public void setBuyerName(String buyerName) {
+        this.buyerName = buyerName;
+    }
+
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
     }
 }

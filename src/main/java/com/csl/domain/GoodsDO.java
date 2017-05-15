@@ -24,7 +24,17 @@ public class GoodsDO implements Serializable {
 
     private String imageUrl;
 
-    private Boolean isCurrentUserAttend;
+    private boolean isCurrentUserAttend;
+
+    private Long createDate;
+
+    private int length;
+
+    private int width;
+
+    private int height;
+
+    private String color;
 
     public String getID() {
         return ID;
@@ -98,11 +108,51 @@ public class GoodsDO implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public Boolean getCurrentUserAttend() {
+    public Boolean isCurrentUserAttend() {
         return isCurrentUserAttend;
     }
 
-    public void setCurrentUserAttend(Boolean currentUserAttend) {
+    public void setCurrentUserAttend(boolean currentUserAttend) {
         isCurrentUserAttend = currentUserAttend;
+    }
+
+    public Long getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Long createDate) {
+        this.createDate = createDate;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

@@ -180,11 +180,14 @@ function AjaxMethod() {
                 dataType: "json",
             });
         },
-        getTop5: function () {
+        getTop5: function (userID) {
+            var options = {
+                userID: userID,
+            };
             return $.ajax({
                 type: "GET",
                 url: "/goods/getTop5.html",
-                data: {},
+                data: options,
                 dataType: "json",
             });
         },
@@ -195,6 +198,145 @@ function AjaxMethod() {
             return $.ajax({
                 type: "GET",
                 url: "/goods/getCollection.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        getRepository: function (userID) {
+            var options = {
+                userID: userID,
+            };
+            return $.ajax({
+                type: "GET",
+                url: "/goods/getRepository.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        update: function (goods) {
+            var options = {
+                goodsJSON: JSON.stringify(goods),
+            };
+            return $.ajax({
+                type: "GET",
+                url: "/goods/update.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        remove: function (goodsID, type) {
+            var options = {
+                goodsID: goodsID,
+                type: type,
+            };
+            return $.ajax({
+                type: "GET",
+                url: "/goods/remove.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        addGoods: function (goods, userID) {
+            var options = {
+                goodsJSON: JSON.stringify(goods),
+                userID: userID,
+            };
+            return $.ajax({
+                type: "GET",
+                url: "/goods/addGoods.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        updateGoodsStatus: function (goodsID, status) {
+            var options = {
+                goodsID: goodsID,
+                status: status,
+            };
+            return $.ajax({
+                type: "GET",
+                url: "/goods/updateStatus.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        upImage: function (image) {
+            var options = {
+                imageFile: image,
+            };
+            return $.ajax({
+                type: "POST",
+                url: "/goods/upImage.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        createOrder: function (sellerID, buyerID, goodsID) {
+            var options = {
+                sellerID: sellerID,
+                buyerID: buyerID,
+                goodsID: goodsID,
+            };
+            return $.ajax({
+                type: "GET",
+                url: "/order/createOrder.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        getAllSellOrder: function (sellerID) {
+            var options = {
+                sellerID: sellerID,
+            };
+            return $.ajax({
+                type: "GET",
+                url: "/order/getAllSell.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        getAllBuyOrder: function (buyerID) {
+            var options = {
+                buyerID: buyerID,
+            };
+            return $.ajax({
+                type: "GET",
+                url: "/order/getAllBuy.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        updateSellerStatus: function (ID, status) {
+            var options = {
+                sellerID: ID,
+                status: status,
+            };
+            return $.ajax({
+                type: "POST",
+                url: "/order/updateSellerStatus.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        updateBuyerStatus: function (ID, status) {
+            var options = {
+                buyerID: ID,
+                status: status,
+            };
+            return $.ajax({
+                type: "POST",
+                url: "/order/updateBuyerStatus.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        newOrder: function (sellerID) {
+            var options = {
+                sellerID: sellerID,
+            };
+            return $.ajax({
+                type: "GET",
+                url: "/order/newOrder.html",
                 data: options,
                 dataType: "json",
             });
