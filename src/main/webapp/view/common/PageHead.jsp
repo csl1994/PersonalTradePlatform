@@ -14,16 +14,16 @@
         </a>
     </div>
     <div class="head-button-div">
-        <a class="a-button head-button" id="buttonCollection" href="javascript:void(0)">收藏</a>
+        <a class="a-button head-button" id="buttonCollection" href="javascript:void(0)">我的收藏</a>
     </div>
     <div class="head-button-div">
-        <a class="a-button head-button" id="buttonStore" href="javascript:void(0)">柜台</a>
+        <a class="a-button head-button" id="buttonStore" href="javascript:void(0)">我的柜台</a>
     </div>
     <%--<div class="head-button-div">--%>
         <%--<a class="a-button head-button" id="buttonExplain" href="javascript:void(0)">说明</a>--%>
     <%--</div>--%>
     <div class="head-button-div">
-        <a class="a-button head-button" id="buttonLogin" href="javascript:void(0)">登入</a>
+        <a class="a-button head-button" id="buttonLogin" href="javascript:void(0)">登入平台</a>
     </div>
     <div class="head-button-div">
         <div class="pop-menu hide">
