@@ -7,7 +7,7 @@
             <img src="/content/image/home.png" id="buttonHome" alt="主页"/>
         </a>
     </div>
-    <div class="head-button-div">
+    <div class="head-button-div hide">
         <a class="a-button head-button" id="buttonRegion" href="javascript:void(0)">
             地区
             <div class="region-image"></div>
