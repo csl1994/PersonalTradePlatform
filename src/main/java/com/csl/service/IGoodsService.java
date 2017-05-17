@@ -19,7 +19,7 @@ public interface IGoodsService {
 
     GoodsDO getByID(String goodsID, String userID);
 
-    List<GoodsDO> getGoods(String userID, String region, GoodsKind kind, SortBasis sortBasis, int page);
+    List<GoodsDO> getGoods(String userID, String region, GoodsKind kind, SortBasis sortBasis, int page, String text);
 
     List<GoodsDO> getGoodsByUserID(String ID, ActionPage actionPage);
 
@@ -27,5 +27,5 @@ public interface IGoodsService {
 
     boolean removeAttention(String userID, String goodsID);
 
-    int getCount(String userID, String region, GoodsKind goodsKind);
+    int getCount(String userID, String region, GoodsKind goodsKind, String text);
 }

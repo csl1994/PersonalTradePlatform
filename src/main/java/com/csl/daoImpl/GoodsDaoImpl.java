@@ -85,7 +85,7 @@ public class GoodsDaoImpl implements IGoodsDao {
         return this.namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValue("ID", ID));
     }
 
-    public int getCount(final String userID, final String region, final GoodsKind goodsKind) {
+    public int getCount(final String userID, final String region, final GoodsKind goodsKind,String text) {
         StringBuilder sql = new StringBuilder();
         sql.append(" SELECT COUNT(*) FROM GOODS LEFT JOIN OWNER ON OWNER.GOODSID=GOODS.ID LEFT JOIN USER ON USER.ID= OWNER.USERID WHERE ");
         if (region != null && goodsKind != null) {
@@ -96,6 +96,9 @@ public class GoodsDaoImpl implements IGoodsDao {
             sql.append(" KIND='" + goodsKind.name() + "' AND ");
         }
         sql.append(" STATUS <> '" + GoodsStatus.sold + "' AND USER.ID <> '" + userID + "' ");
+        if(text != null && text != ""){
+            sql.append(" AND (GOODS.NAME like '%" + text + "%' or DESCRIPTION like '%" + text + "%') ");
+        }
         final List<Integer> result = new ArrayList<Integer>();
         this.namedParameterJdbcTemplate.getJdbcOperations().query(sql.toString(),
                 new RowCallbackHandler() {
@@ -192,55 +195,55 @@ public class GoodsDaoImpl implements IGoodsDao {
     }
 
     //1.默认排序，无地区无种类
-    public List<GoodsDO> getGoods(final boolean isInit, final int page, final String userID) {
-        final String sql = this.generateSelectSql(isInit, page, null, null, null, SortKind.NONE, userID);
+    public List<GoodsDO> getGoods(final boolean isInit, final int page, final String userID, String text) {
+        final String sql = this.generateSelectSql(isInit, page, null, null, null, SortKind.NONE, userID, text);
         return this.executeSelect(sql);
     }
 
     //2.默认排序，无地区有种类
-    public List<GoodsDO> getGoods(final GoodsKind kind, final boolean isInit, final int page, final String userID) {
-        String sql = this.generateSelectSql(isInit, page, null, kind, null, SortKind.NONE, userID);
+    public List<GoodsDO> getGoods(final GoodsKind kind, final boolean isInit, final int page, final String userID, String text) {
+        String sql = this.generateSelectSql(isInit, page, null, kind, null, SortKind.NONE, userID, text);
         return this.executeSelect(sql);
     }
 
     //3.默认排序，有地区无种类
-    public List<GoodsDO> getGoods(final String region, final boolean isInit, final int page, final String userID) {
-        final String sql = this.generateSelectSql(isInit, page, region, null, null, SortKind.NONE, userID);
+    public List<GoodsDO> getGoods(final String region, final boolean isInit, final int page, final String userID, String text) {
+        final String sql = this.generateSelectSql(isInit, page, region, null, null, SortKind.NONE, userID, text);
         return this.executeSelect(sql);
     }
 
     //4.默认排序，有地区有种类
     public List<GoodsDO> getGoods(final String region, final GoodsKind kind, final boolean isInit, final int page
-            , final String userID) {
-        final String sql = this.generateSelectSql(isInit, page, region, kind, null, SortKind.NONE, userID);
+            , final String userID, String text) {
+        final String sql = this.generateSelectSql(isInit, page, region, kind, null, SortKind.NONE, userID, text);
         return this.executeSelect(sql);
     }
 
     //5.非默认排序（升降），无地区无种类
     public List<GoodsDO> getGoods(final String orderBy, final SortKind sortKind, final boolean isInit, final int page
-            , final String userID) {
-        String sql = this.generateSelectSql(isInit, page, null, null, orderBy, sortKind, userID);
+            , final String userID, String text) {
+        String sql = this.generateSelectSql(isInit, page, null, null, orderBy, sortKind, userID, text);
         return this.executeSelect(sql);
     }
 
     //6.非默认排序（升降），无地区有种类
     public List<GoodsDO> getGoods(final GoodsKind kind, final String orderBy, final SortKind sortKind, final boolean isInit
-            , final int page, final String userID) {
-        String sql = this.generateSelectSql(isInit, page, null, kind, orderBy, sortKind, userID);
+            , final int page, final String userID, String text) {
+        String sql = this.generateSelectSql(isInit, page, null, kind, orderBy, sortKind, userID, text);
         return this.executeSelect(sql);
     }
 
     //7.非默认排序（升降），有地区无种类
     public List<GoodsDO> getGoods(final String region, final String orderBy, final SortKind sortKind, final boolean isInit
-            , final int page, final String userID) {
-        String sql = this.generateSelectSql(isInit, page, region, null, orderBy, sortKind, userID);
+            , final int page, final String userID, String text) {
+        String sql = this.generateSelectSql(isInit, page, region, null, orderBy, sortKind, userID, text);
         return this.executeSelect(sql);
     }
 
     //8.非默认排序（升降），有地区有种类
     public List<GoodsDO> getGoods(final String region, final GoodsKind kind, final String orderBy, final SortKind sortKind
-            , final boolean isInit, final int page, final String userID) {
-        String sql = this.generateSelectSql(isInit, page, region, kind, orderBy, sortKind, userID);
+            , final boolean isInit, final int page, final String userID, String text) {
+        String sql = this.generateSelectSql(isInit, page, region, kind, orderBy, sortKind, userID, text);
         return this.executeSelect(sql);
     }
 
@@ -263,7 +266,7 @@ public class GoodsDaoImpl implements IGoodsDao {
     }
 
     private String generateSelectSql(boolean isInit, int page, String region, GoodsKind kind, String orderBy, SortKind sortKind
-            , final String userID) {
+            , final String userID, String text) {
         StringBuilder sql = new StringBuilder();
         sql.append(" SELECT GOODS.ID,GOODS.NAME,DESCRIPTION,PRICE,KIND,STATUS,ATTENTIONDEGREE,DATETIME,CREATEDATE," +
                 " COLOR,LENGTH,WIDTH,HEIGHT,URL FROM GOODS LEFT JOIN IMAGE ON GOODS.ID=IMAGE.GOODSID LEFT JOIN OWNER " +
@@ -276,6 +279,9 @@ public class GoodsDaoImpl implements IGoodsDao {
             sql.append(" KIND='" + kind.name() + "' AND ");
         }
         sql.append(" STATUS <> '" + GoodsStatus.sold + "' AND USER.ID <> '" + userID + "' ");
+        if (text != "" && text != null) {
+            sql.append(" AND (GOODS.NAME like '%" + text + "%' or DESCRIPTION like '%" + text + "%') ");
+        }
         if (sortKind == SortKind.NONE) {
             sql.append(" ORDER BY DATETIME DESC ");
         } else {

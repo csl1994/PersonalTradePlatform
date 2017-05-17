@@ -118,6 +118,15 @@
         </div>
     </div>
 </div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<%@include file="/view/common/PageFoot.jsp"%>
+<br/>
+<br/>
 </body>
 <%@include file="/view/goods/GoodsOwner.jsp" %>
 <%@include file="/view/account/UserAccount.jsp" %>

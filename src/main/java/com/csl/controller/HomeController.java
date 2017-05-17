@@ -28,11 +28,11 @@ public class HomeController {
 
     @RequestMapping(value = "/getGoodsList", method = RequestMethod.GET)
     @ResponseBody
-    public List<GoodsDO> getGoodsList(String userID, String region, String goodsKind, String sortBasis, int page) {
+    public List<GoodsDO> getGoodsList(String userID, String region, String goodsKind, String sortBasis, int page, String text) {
         List<GoodsDO> goodsDOList = new ArrayList<GoodsDO>();
         try {
             goodsDOList = this.goodsService.getGoods(userID, region == "" ? null : region
-                    , goodsKind == "" ? null : GoodsKind.valueOf(goodsKind), SortBasis.valueOf(sortBasis), page);
+                    , goodsKind == "" ? null : GoodsKind.valueOf(goodsKind), SortBasis.valueOf(sortBasis), page, text);
         } catch (Exception exception) {
 
         }
@@ -41,18 +41,18 @@ public class HomeController {
 
     @RequestMapping(value = "/getCount", method = RequestMethod.GET)
     @ResponseBody
-    public int getCount(String userID, String region, String goodsKind) {
+    public int getCount(String userID, String region, String goodsKind, String text) {
         int count = 0;
         try {
-            count = this.goodsService.getCount(userID, region == "" ? null : region, goodsKind == "" ? null : GoodsKind.valueOf(goodsKind));
+            count = this.goodsService.getCount(userID, region == "" ? null : region, goodsKind == "" ? null : GoodsKind.valueOf(goodsKind), text);
         } catch (Exception exception) {
 
         }
         return count;
     }
 
-    @RequestMapping(value = "/test",method = RequestMethod.GET)
-    public ModelAndView test(){
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public ModelAndView test() {
         return new ModelAndView("websocket");
     }
 }

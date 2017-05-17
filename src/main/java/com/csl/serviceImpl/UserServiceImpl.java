@@ -58,4 +58,8 @@ public class UserServiceImpl implements IUserService {
     public UserDO getOwner(String goodsID) {
         return this.userDao.getOwner(goodsID);
     }
+
+    public boolean updateCredit(String ID, int count) {
+        return this.userDao.updateCredit(ID, count) > 0;
+    }
 }

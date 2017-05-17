@@ -165,4 +165,10 @@ public class GoodsController {
     public boolean updateStatus(String goodsID, String status) {
         return this.goodsService.updateStatus(goodsID, GoodsStatus.valueOf(status));
     }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    @ResponseBody
+    public List<GoodsDO> search(String userID, String text) {
+        return null;
+    }
 }

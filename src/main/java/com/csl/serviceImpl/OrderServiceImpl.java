@@ -44,7 +44,19 @@ public class OrderServiceImpl implements IOrderService {
         return this.orderDao.updateBuyerStatus(ID, status) > 0;
     }
 
-    public boolean newOrder(String sellerID) {
-        return this.orderDao.newOrder(sellerID) > 0;
+    public boolean newSellOrder(String sellerID) {
+        return this.orderDao.newSellOrder(sellerID) > 0;
+    }
+
+    public boolean newBuyOrder(String buyerID) {
+        return this.orderDao.newBuyOrder(buyerID) > 0;
+    }
+
+    public boolean updateSellerGrade(String ID, int grade) {
+        return this.orderDao.updateSellerGrade(ID, grade) > 0;
+    }
+
+    public boolean updateBuyerGrade(String ID, int grade) {
+        return this.orderDao.updateBuyerGrade(ID, grade) > 0;
     }
 }

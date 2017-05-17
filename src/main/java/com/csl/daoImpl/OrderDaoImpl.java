@@ -69,7 +69,7 @@ public class OrderDaoImpl implements IOrderDao {
 
     public List<OrderDO> getBySellerID(String ID) {
         final String sql = " SELECT ID,SELLERID,BUYERID,GOODSID,ORDERDATETIME,SELLERGRADE,BUYERGRADE,SELLERSTATUS, " +
-                "BUYERSTATUS FROM ORDERS WHERE SELLERID=:ID AND SELLERSTATUS <> 'delete' ORDER BY ORDERDATETIME DESC ";
+                " BUYERSTATUS,SELLERNAME,BUYERNAME,GOODSNAME FROM ORDERS WHERE SELLERID=:ID AND SELLERSTATUS <> 'delete' ORDER BY ORDERDATETIME DESC ";
         final List<OrderDO> orderDOList = new ArrayList<OrderDO>();
         this.namedParameterJdbcTemplate.query(sql, new MapSqlParameterSource().addValue("ID", ID),
                 new RowCallbackHandler() {
@@ -129,7 +129,7 @@ public class OrderDaoImpl implements IOrderDao {
         return this.namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValue("ID", ID));
     }
 
-    public int newOrder(String sellerID) {
+    public int newSellOrder(String sellerID) {
         final String sql = " SELECT ID FROM ORDERS WHERE SELLERID=:sellerID AND SELLERSTATUS = 'unread' ";
         final List<String> orderID = new ArrayList<String>();
         this.namedParameterJdbcTemplate.query(sql, new MapSqlParameterSource().addValue("sellerID", sellerID),
@@ -139,5 +139,27 @@ public class OrderDaoImpl implements IOrderDao {
                     }
                 });
         return orderID.size();
+    }
+
+    public int newBuyOrder(String buyerID) {
+        final String sql = " SELECT ID FROM ORDERS WHERE BUYERID=:buyerID AND BUYERSTATUS = 'unread' ";
+        final List<String> orderID = new ArrayList<String>();
+        this.namedParameterJdbcTemplate.query(sql, new MapSqlParameterSource().addValue("buyerID", buyerID),
+                new RowCallbackHandler() {
+                    public void processRow(ResultSet resultSet) throws SQLException {
+                        orderID.add(resultSet.getString("ID"));
+                    }
+                });
+        return orderID.size();
+    }
+
+    public int updateSellerGrade(String ID, int grade) {
+        final String sql = " UPDATE ORDERS SET SELLERGRADE='" + grade + "' WHERE ID=:ID ";
+        return this.namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValue("ID", ID));
+    }
+
+    public int updateBuyerGrade(String ID, int grade) {
+        final String sql = " UPDATE ORDERS SET BUYERGRADE='" + grade + "' WHERE ID=:ID ";
+        return this.namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValue("ID", ID));
     }
 }

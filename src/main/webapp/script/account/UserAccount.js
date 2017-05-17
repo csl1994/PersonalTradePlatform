@@ -97,12 +97,19 @@ function UserAccount() {
             home.reLoad();
         },
         updateOrder: function () {
-            var defer = ajax.newOrder($.cookie("userID"));
-            defer.done(innerHelper.newOrderMark).fail();
+            var defer1 = ajax.newSellOrder($.cookie("userID"));
+            defer1.done(innerHelper.updateSellOrder).fail();
+            var defer2 = ajax.newBuyOrder($.cookie("userID"));
+            defer2.done(innerHelper.updateBuyOrder).fail();
         },
-        newOrderMark: function (data) {
+        updateSellOrder: function (data) {
             if (data === true) {
-                $("#user").parent().find("div").append("<span class='new-mark'>new</span>");
+                $("#user").parent().find("div").append("<span class='new-sell-mark'>new</span>");
+            }
+        },
+        updateBuyOrder: function (data) {
+            if (data === true) {
+                $("#user").parent().find("div").append("<span class='new-buy-mark'>new</span>");
             }
         },
         generateValidateCode: function () {

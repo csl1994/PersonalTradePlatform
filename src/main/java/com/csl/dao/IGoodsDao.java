@@ -22,7 +22,7 @@ public interface IGoodsDao extends IBaseDao<GoodsDO> {
 
     int removeSoldGoods(final String ID);
 
-    int getCount(final String userID,final String region, final GoodsKind goodsKind);
+    int getCount(final String userID,final String region, final GoodsKind goodsKind, final String text);
 
     List<GoodsDO> getByOwnerID(final String ID);
 
@@ -32,19 +32,19 @@ public interface IGoodsDao extends IBaseDao<GoodsDO> {
 
     List<GoodsDO> getByAttentionID(final String ID);
 
-    List<GoodsDO> getGoods(final boolean isInit, final int page, final String userID);
+    List<GoodsDO> getGoods(final boolean isInit, final int page, final String userID,final String text);
 
-    List<GoodsDO> getGoods(final GoodsKind kind, final boolean isInit, final int page, final String userID);
+    List<GoodsDO> getGoods(final GoodsKind kind, final boolean isInit, final int page, final String userID,final String text);
 
-    List<GoodsDO> getGoods(final String region, final boolean isInit, final int page, final String userID);
+    List<GoodsDO> getGoods(final String region, final boolean isInit, final int page, final String userID,final String text);
 
-    List<GoodsDO> getGoods(final String orderBy, final SortKind sortKind, final boolean isInit, final int page, final String userID);
+    List<GoodsDO> getGoods(final String orderBy, final SortKind sortKind, final boolean isInit, final int page, final String userID,final String text);
 
-    List<GoodsDO> getGoods(final String region, final GoodsKind kind, final boolean isInit, final int page, final String userID);
+    List<GoodsDO> getGoods(final String region, final GoodsKind kind, final boolean isInit, final int page, final String userID,final String text);
 
-    List<GoodsDO> getGoods(final GoodsKind kind, final String orderBy, final SortKind sortKind, final boolean isInit, final int page, final String userID);
+    List<GoodsDO> getGoods(final GoodsKind kind, final String orderBy, final SortKind sortKind, final boolean isInit, final int page, final String userID,final String text);
 
-    List<GoodsDO> getGoods(final String region, final String orderBy, final SortKind sortKind, final boolean isInit, final int page, final String userID);
+    List<GoodsDO> getGoods(final String region, final String orderBy, final SortKind sortKind, final boolean isInit, final int page, final String userID,final String text);
 
-    List<GoodsDO> getGoods(final String region, final GoodsKind kind, final String orderBy, final SortKind sortKind, final boolean isInit, final int page, final String userID);
+    List<GoodsDO> getGoods(final String region, final GoodsKind kind, final String orderBy, final SortKind sortKind, final boolean isInit, final int page, final String userID,final String text);
 }

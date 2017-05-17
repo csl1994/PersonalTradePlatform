@@ -3,13 +3,14 @@
  */
 function AjaxMethod() {
     return {
-        getGoodsList: function (userID, region, goodsKind, sortBasis, page) {
+        getGoodsList: function (userID, region, goodsKind, sortBasis, page, text) {
             var options = {
                 userID: userID,
                 region: region,
                 goodsKind: goodsKind,
                 sortBasis: sortBasis,
                 page: page,
+                text: text,
             }
             return $.ajax({
                 type: "GET",
@@ -18,11 +19,12 @@ function AjaxMethod() {
                 dataType: "json",
             });
         },
-        getPage: function (userID, region, goodsKind) {
+        getPage: function (userID, region, goodsKind, text) {
             var options = {
                 userID: userID,
                 region: region,
                 goodsKind: goodsKind,
+                text: text,
             }
             return $.ajax({
                 type: "GET",
@@ -330,16 +332,53 @@ function AjaxMethod() {
                 dataType: "json",
             });
         },
-        newOrder: function (sellerID) {
+        newSellOrder: function (sellerID) {
             var options = {
                 sellerID: sellerID,
             };
             return $.ajax({
                 type: "GET",
-                url: "/order/newOrder.html",
+                url: "/order/newSellOrder.html",
                 data: options,
                 dataType: "json",
             });
         },
+        newBuyOrder: function (buyerID) {
+            var options = {
+                buyerID: buyerID,
+            };
+            return $.ajax({
+                type: "GET",
+                url: "/order/newBuyOrder.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        updateSellerGrade: function (ID, sellerID, grade) {
+            var options = {
+                ID: ID,
+                userID: sellerID,
+                grade: grade,
+            };
+            return $.ajax({
+                type: "GET",
+                url: "/order/updateSellerGrade.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        updateBuyerGrade: function (ID, buyerID, grade) {
+            var options = {
+                ID: ID,
+                userID: buyerID,
+                grade: grade,
+            };
+            return $.ajax({
+                type: "GET",
+                url: "order/updateBuyerGrade.html",
+                data: options,
+                dataType: "json",
+            });
+        }
     }
 }

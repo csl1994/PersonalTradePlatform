@@ -42,8 +42,8 @@ public class GoodsServiceImplTest extends AbstractTestNGSpringContextTests {
     public void get() {
         GoodsDO goodsDO1 = this.goodsService.getByID("5134e290-0641-447b-943d-6669fcf034e1", "");
         List<GoodsDO> goodsDOList = this.goodsService.getGoodsByUserID("818be6db-0a8a-4944-8d2b-d86934cd1666", ActionPage.own);
-        List<GoodsDO> goodsDOList1 = this.goodsService.getGoods("818be6db-0a8a-4944-8d2b-d86934cd1666", "dalian", GoodsKind.digitalProduct, SortBasis.PRICEASC, 1);
-        List<GoodsDO> goodsDOList2 = this.goodsService.getGoods("818be6db-0a8a-4944-8d2b-d86934cd1666", null, null, SortBasis.NONE, 1);
+        List<GoodsDO> goodsDOList1 = this.goodsService.getGoods("818be6db-0a8a-4944-8d2b-d86934cd1666", "dalian", GoodsKind.digitalProduct, SortBasis.PRICEASC, 1,"usb");
+        List<GoodsDO> goodsDOList2 = this.goodsService.getGoods("818be6db-0a8a-4944-8d2b-d86934cd1666", null, null, SortBasis.NONE, 1,"car");
     }
 
     @Test
@@ -59,6 +59,6 @@ public class GoodsServiceImplTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void getCount() {
-        int a = this.goodsService.getCount("818be6db-0a8a-4944-8d2b-d86934cd1666", "dalian", GoodsKind.digitalProduct);
+        int a = this.goodsService.getCount("818be6db-0a8a-4944-8d2b-d86934cd1666", "dalian", GoodsKind.digitalProduct,"car");
     }
 }

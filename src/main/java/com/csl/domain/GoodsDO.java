@@ -12,7 +12,7 @@ public class GoodsDO implements Serializable {
 
     private String description;
 
-    private int price;
+    private double price;
 
     private String kind;
 
@@ -60,11 +60,11 @@ public class GoodsDO implements Serializable {
         this.description = description;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

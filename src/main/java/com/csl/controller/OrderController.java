@@ -6,6 +6,7 @@ import com.csl.domain.OrderStatus;
 import com.csl.domain.UserDO;
 import com.csl.serviceImpl.GoodsServiceImpl;
 import com.csl.serviceImpl.OrderServiceImpl;
+import com.csl.serviceImpl.RecordsServiceImpl;
 import com.csl.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -31,6 +32,8 @@ public class OrderController {
     private UserServiceImpl userService;
     @Autowired
     private GoodsServiceImpl goodsService;
+    @Autowired
+    private RecordsServiceImpl recordsService;
 
     @RequestMapping(value = "/createOrder", method = RequestMethod.GET)
     @ResponseBody
@@ -46,8 +49,8 @@ public class OrderController {
         orderDO.setDatetime(new Date().getTime());
         orderDO.setSellerGrade(0);
         orderDO.setBuyerGrade(0);
-        orderDO.setSellerStatus(OrderStatus.start.name());
-        orderDO.setBuyerStatus(OrderStatus.unread.name());
+        orderDO.setSellerStatus(OrderStatus.unread.name());
+        orderDO.setBuyerStatus(OrderStatus.start.name());
         orderDO.setSellerName(seller.getName());
         orderDO.setBuyerName(buyer.getName());
         orderDO.setGoodsName(goods.getName());
@@ -78,9 +81,41 @@ public class OrderController {
         return this.orderService.updateBuyerStatus(buyerID, status);
     }
 
-    @RequestMapping(value = "/newOrder", method = RequestMethod.GET)
+    @RequestMapping(value = "/newSellOrder", method = RequestMethod.GET)
     @ResponseBody
-    public boolean newOrder(String sellerID) {
-        return true;//this.orderService.newOrder(sellerID);
+    public boolean newSellOrder(String sellerID) {
+        return this.orderService.newSellOrder(sellerID);
+    }
+
+    @RequestMapping(value = "/newBuyOrder", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean newBuyOrder(String buyerID) {
+        return this.orderService.newBuyOrder(buyerID);
+    }
+
+    @RequestMapping(value = "/updateSellerGrade", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean updateSellerGrade(String ID, String userID, int grade) {
+        boolean result = true;
+        result = this.orderService.updateSellerGrade(ID, grade);
+        if (result) {
+            this.recordsService.updateUserCredit(userID, grade);
+            this.orderService.updateSellerStatus(ID, OrderStatus.unread.name());
+            this.orderService.updateBuyerStatus(ID, OrderStatus.end.name());
+        }
+        return true;
+    }
+
+    @RequestMapping(value = "/updateBuyerGrade", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean updateBuyerGrade(String ID, String userID, int grade) {
+        boolean result = true;
+        result = this.orderService.updateBuyerGrade(ID, grade);
+        if (result) {
+            this.recordsService.updateUserCredit(userID, grade);
+            this.orderService.updateSellerStatus(ID, OrderStatus.end.name());
+            this.orderService.updateBuyerStatus(ID, OrderStatus.unread.name());
+        }
+        return true;
     }
 }

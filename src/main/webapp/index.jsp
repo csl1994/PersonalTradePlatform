@@ -66,19 +66,23 @@
             </div>
         </a>
     </div>
+    <div class="goods-show-filter">
+        <input type="type" class="input-large margin-left-50" placeholder="搜索" id="searchText"/>
+        <input type="button" class="input-small input-button" value="搜索物品" id="searchGoods"/>
+        <span class="margin-left-50">当前类别: </span><span id="currentKind">全部</span>
+    </div>
     <div id="goodsList"></div>
     <div class="goods-page-list"></div>
-    <br/>
-    <br/>
-    <input id="test" type="button" value="test" />
-    <script>
-        $("#test").click(function () {
-            window.open("/home/test.html");
-        });
-    </script>
-    <br/>
-    <br/>
 </div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<%@include file="/view/common/PageFoot.jsp"%>
+<br/>
+<br/>
 <script src="script/common/GoodsList.js?v=<%=new Date().getTime()%>"></script>
 <script src="script/home/HomePage.js?v=<%=new Date().getTime()%>"></script>
 <%@include file="view/account/UserAccount.jsp" %>

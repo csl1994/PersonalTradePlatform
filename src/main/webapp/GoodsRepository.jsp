@@ -34,6 +34,15 @@
     </div>
     <div class="goods-page-list"></div>
 </div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<%@include file="/view/common/PageFoot.jsp"%>
+<br/>
+<br/>
 </body>
 <script src="/script/goods/GoodsRepository.js?v=<%=new Date().getTime()%>"></script>
 </html>

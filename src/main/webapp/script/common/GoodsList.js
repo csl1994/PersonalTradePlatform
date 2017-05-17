@@ -43,6 +43,8 @@ var GoodsList = function (options) {
         buildGoodsList: function () {
             var htmlString = "";
             if (settings.data.length <= 0) {
+                htmlString = "<span class='span-medium'>没有任何物品</span>";
+                $(settings.listElement).append(htmlString);
                 return false;
             }
             $.each(settings.data, function (index, element) {

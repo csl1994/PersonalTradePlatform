@@ -19,9 +19,9 @@
     <div class="head-button-div">
         <a class="a-button head-button" id="buttonStore" href="javascript:void(0)">柜台</a>
     </div>
-    <div class="head-button-div">
-        <a class="a-button head-button" id="buttonExplain" href="javascript:void(0)">说明</a>
-    </div>
+    <%--<div class="head-button-div">--%>
+        <%--<a class="a-button head-button" id="buttonExplain" href="javascript:void(0)">说明</a>--%>
+    <%--</div>--%>
     <div class="head-button-div">
         <a class="a-button head-button" id="buttonLogin" href="javascript:void(0)">登入</a>
     </div>
@@ -40,3 +40,4 @@
 <%@include file="/view/orders/Orders.jsp" %>
 <script src="/script/common/PageHead.js?v=<%=new Date().getTime()%>"></script>
 <script type="text/javascript" src="/script/common/OrdersList.js?version=<%=new Date().getTime()%>"></script>
+<script type="text/javascript" src="/script/common/Timer.js?v=<%=new Date().getTime()%>"></script>

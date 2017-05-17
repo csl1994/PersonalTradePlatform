@@ -152,4 +152,20 @@ public class UserDaoImpl implements IUserDao {
                 });
         return userDO;
     }
+
+    public int updateCredit(String ID, int credit) {
+        final String sql = " UPDATE USER SET CREDIT= " + credit + " WHERE ID=:ID ";
+        return this.namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValue("ID", ID));
+    }
+
+    public int getCredit(String ID) {
+        final String sql = " SELECT CREDIT FROM USER WHERE ID='" + ID + "'";
+        final List<Integer> credit = new ArrayList<Integer>();
+        this.namedParameterJdbcTemplate.getJdbcOperations().query(sql, new RowCallbackHandler() {
+            public void processRow(ResultSet resultSet) throws SQLException {
+                credit.add(resultSet.getInt("CREDIT"));
+            }
+        });
+        return credit.get(0);
+    }
 }

@@ -200,12 +200,15 @@
         %>
     </div>
 </div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<%@include file="/view/common/PageFoot.jsp"%>
+<br/>
+<br/>
 </body>
 <script src="/script/goods/GoodsEdit.js?v=<%=new Date().getTime()%>"></script>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
 </html>

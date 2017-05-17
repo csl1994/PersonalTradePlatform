@@ -35,6 +35,15 @@
     <div id="goodsCollection">
     </div>
 </div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<%@include file="/view/common/PageFoot.jsp"%>
+<br/>
+<br/>
 </body>
 <script src="/script/goods/UserCollection.js?v<%=new Date().getTime()%>"></script>
 </html>

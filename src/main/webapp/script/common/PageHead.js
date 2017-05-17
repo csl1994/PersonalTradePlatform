@@ -4,6 +4,7 @@
 function PageHead() {
     var href = new HrefMethod();
     var ajax = new AjaxMethod();
+    var ip = undefined;
     var innerHelper = {
         buildEvent: function () {
             $(".page-head").bind("click", function (event) {
@@ -54,6 +55,7 @@ function PageHead() {
                         $("body").css("overflow", "hidden");
                         $("#orderBackground").show();
                         $("#sellRecordList").show();
+                        innerHelper.getSellRecordList();
                         break;
                     case "addGoods":
                         href.createGoods();
@@ -76,13 +78,20 @@ function PageHead() {
                 $("#buttonLogin").parent("div").hide();
                 $("#user").parent("div").show();
                 $("#user").text("").text(userName);
-                var defer = ajax.newOrder(userID);
-                defer.done(innerHelper.updateOrder).fail();
+                var defer1 = ajax.newSellOrder(userID);
+                defer1.done(innerHelper.updateSellOrder).fail();
+                var defer2 = ajax.newBuyOrder(userID);
+                defer2.done(innerHelper.updateBuyOrder).fail();
             }
         },
-        updateOrder: function (data) {
+        updateSellOrder: function (data) {
             if (data === true) {
-                $("#user").parent().find("div").append("<span class='new-mark'>new</span>");
+                $("#user").parent().find("div").append("<span class='new-sell-mark'>new</span>");
+            }
+        },
+        updateBuyOrder: function (data) {
+            if (data === true) {
+                $("#user").parent().find("div").append("<span class='new-buy-mark'>new</span>");
             }
         },
         buildUserEvent: function () {
@@ -104,6 +113,7 @@ function PageHead() {
         },
         showBuyList: function (data) {
             if (data) {
+                $("#buyRecordList").find(".order-list").show();
                 var options = {
                     listElement: $("#buyRecordList").find(".order-list"),
                     data: data,
@@ -120,6 +130,7 @@ function PageHead() {
         },
         showSellList: function (data) {
             if (data) {
+                $("#sellRecordList").find(".order-list").show();
                 var options = {
                     listElement: $("#sellRecordList").find(".order-list"),
                     data: data,
@@ -141,9 +152,138 @@ function PageHead() {
                         $(this).find(".order-operation").hide();
                         break;
                     case "click":
+                        var sellerID = $(this).find(".js-seller-id").val();
+                        var buyerID = $(this).find(".js-buyer-id").val();
+                        var buyerGrade = $(this).find(".js-buyer-grade").val();
+                        var buyerStatus = $(this).find(".js-buyer-status").val();
+                        var sellerGrade = $(this).find(".js-seller-grade").val();
+                        var sellerStatus = $(this).find(".js-seller-status").val();
+                        var orderID = $(this).find(".js-id").val();
+                        if (sellerID) {
+                            innerHelper.deployOrderSpecific(sellerGrade, sellerStatus, buyerGrade, buyerStatus, 1);
+                            $("#buyRecordList").find(".order-list").hide();
+                            $("#buyRecordList").find(".order-specific").show();
+                            var defer = ajax.getUserByID(sellerID);
+                            defer.done(innerHelper.deployUser).fail();
+                            if (sellerStatus === "unread") {
+                                var defer1 = ajax.updateBuyerStatus(orderID, "end");
+                                defer1.done().fail();
+                            }
+                        }
+                        if (buyerID) {
+                            innerHelper.deployOrderSpecific(sellerGrade, sellerStatus, buyerGrade, buyerStatus, 0);
+                            $("#sellRecordList").find(".order-list").hide();
+                            $("#sellRecordList").find(".order-specific").show();
+                            var defer = ajax.getUserByID(buyerID);
+                            defer.done(innerHelper.deployUser).fail();
+                            if (sellerStatus === "unread") {
+                                var defer1 = ajax.updateSellerStatus(orderID, "start");
+                                defer1.done().fail();
+                            }
+                        }
                         break;
                 }
-            })
+                return false;
+            });
+            $(".order-operation").unbind("click").bind("click", function () {
+                var sellerID = $(this).parent().find(".js-seller-id").val();
+                var buyerID = $(this).parent().find(".js-buyer-id").val();
+                var orderID = $(this).parent().find(".js-id").val();
+                if (sellerID) {
+                    var defer = ajax.updateBuyerStatus(orderID, "delete");
+                    defer.done().fail();
+                }
+                if (buyerID) {
+                    var defer = ajax.updateSellerStatus(orderID, "delete");
+                    defer.done().fail();
+                }
+                $(this).parent().remove();
+                return false;
+            });
+            $("#buyRecordClose").unbind("click").bind("click", function () {
+                $("#buyRecordList").hide().find(".order-list").empty();
+                $("#buyRecordList").find(".order-list").hide();
+                $("#buyRecordList").find(".order-specific").hide();
+                $("#orderBackground").hide();
+                $("body").css("overflow", "auto");
+                $("#user").find(".new-buy-mark").remove();
+                var defer2 = ajax.newBuyOrder($.cookie("userID"));
+                defer2.done(innerHelper.updateBuyOrder).fail();
+                return false;
+            });
+            $("#sellRecordClose").unbind("click").bind("click", function () {
+                $("#sellRecordList").hide().find(".order-list").empty();
+                $("#sellRecordList").find(".order-list").hide();
+                $("#sellRecordList").find(".order-specific").hide();
+                $("#orderBackground").hide();
+                $("body").css("overflow", "auto");
+                $("#user").find(".new-sell-mark").remove();
+                var defer1 = ajax.newSellOrder($.cookie("userID"));
+                defer1.done(innerHelper.updateSellOrder).fail();
+                return false;
+            });
+            $("#buySubmit").unbind("click").bind("click", function () {
+                var grade = $("#sellerGrade").val();
+                var orderID = $(".js-id").val();
+                var sellerID = $(".js-seller-id").val();
+                if (grade > 0 && grade < 100) {
+                    var defer = ajax.updateSellerGrade(orderID, sellerID, grade);
+                    defer.done().fail();
+                } else {
+                    alert("请填写有效值");
+                }
+            });
+            $("#sellSubmit").unbind("click").bind("click", function () {
+                var grade = $("#buyerGrade").val();
+                var orderID = $(".js-id").val();
+                var buyerID = $(".js-buyer-id").val();
+                if (grade > 0 && grade < 100) {
+                    var defer = ajax.updateBuyerGrade(orderID, buyerID, grade);
+                    defer.done().fail();
+                } else {
+                    alert("请填写有效值");
+                }
+            });
+        },
+        deployOrderSpecific: function (sGrade, sStatus, bGrade, bStatus, kind) {
+            if (kind) {
+                //购买
+                if (sStatus === "end" || sStatus === "delete") {
+                    $(".my-grade-show").empty().text(bGrade);
+                } else {
+                    $(".my-grade-show").empty().text("未评分");
+                }
+                if (bStatus === "end" || bStatus === "unread") {
+                    $("#selllerGrade").val(sGrade).attr("disabled", "true");
+                }
+            } else {
+                //销售
+                if (bStatus === "end" || bStatus === "delete") {
+                    $(".my-grade-show").empty().text(sGrade);
+                } else {
+                    $(".my-grade-show").empty().text("未评分");
+                }
+                if (sStatus === "end") {
+                    $("#buyerGrade").val(bGrade).attr("disabled", "true");
+                }
+            }
+        },
+        deployUser: function (data) {
+            $(".js-email").val(data.email);
+            $(".js-phone").val(data.telephone);
+        },
+        getIp: function () {
+            debugger
+            var url = "http://chaxun.1616.net/s.php?type=ip&output=json&callback=?&_=" + Math.random();
+            $.getJSON(url, function (data) {
+                ip = data.Ip;
+            });
+        },
+        getRegion:function () {
+            var url = "http://ip.taobao.com/service/getIpInfo.php?ip="+"111.117.113.141";
+            $.getJSON(url,function (data) {
+                alert(data.responseText.city);
+            });
         }
     };
     return {
@@ -156,3 +296,4 @@ function PageHead() {
 }
 var head = new PageHead();
 head.init();
+

@@ -49,7 +49,7 @@ public class GoodsServiceImpl implements IGoodsService {
         return this.goodsDao.getTop5(userID);
     }
 
-    public List<GoodsDO> getGoods(String userID, String region, GoodsKind kind, SortBasis sortBasis, int page) {
+    public List<GoodsDO> getGoods(String userID, String region, GoodsKind kind, SortBasis sortBasis, int page, String text) {
         boolean isInit = false;
         if (page <= 1) {
             isInit = true;
@@ -57,25 +57,25 @@ public class GoodsServiceImpl implements IGoodsService {
         List<GoodsDO> goodsDOList = new ArrayList<GoodsDO>();
         switch (sortBasis) {
             case NONE:
-                goodsDOList = this.goodsDao.getGoods(region, kind, isInit, page, userID);
+                goodsDOList = this.goodsDao.getGoods(region, kind, isInit, page, userID, text);
                 break;
             case ATTENTIONDESC:
-                goodsDOList = this.goodsDao.getGoods(region, kind, "ATTENTIONDEGREE", SortKind.DESC, isInit, page, userID);
+                goodsDOList = this.goodsDao.getGoods(region, kind, "ATTENTIONDEGREE", SortKind.DESC, isInit, page, userID, text);
                 break;
             case ATTENTIONASC:
-                goodsDOList = this.goodsDao.getGoods(region, kind, "ATTENTIONDEGREE", SortKind.ASC, isInit, page, userID);
+                goodsDOList = this.goodsDao.getGoods(region, kind, "ATTENTIONDEGREE", SortKind.ASC, isInit, page, userID, text);
                 break;
             case PRICEDESC:
-                goodsDOList = this.goodsDao.getGoods(region, kind, "PRICE", SortKind.DESC, isInit, page, userID);
+                goodsDOList = this.goodsDao.getGoods(region, kind, "PRICE", SortKind.DESC, isInit, page, userID, text);
                 break;
             case PRICEASC:
-                goodsDOList = this.goodsDao.getGoods(region, kind, "PRICE", SortKind.ASC, isInit, page, userID);
+                goodsDOList = this.goodsDao.getGoods(region, kind, "PRICE", SortKind.ASC, isInit, page, userID, text);
                 break;
             case CREDITDESC:
-                goodsDOList = this.goodsDao.getGoods(region, kind, "CREDIT", SortKind.DESC, isInit, page, userID);
+                goodsDOList = this.goodsDao.getGoods(region, kind, "CREDIT", SortKind.DESC, isInit, page, userID, text);
                 break;
             case CREDITASC:
-                goodsDOList = this.goodsDao.getGoods(region, kind, "CREDIT", SortKind.ASC, isInit, page, userID);
+                goodsDOList = this.goodsDao.getGoods(region, kind, "CREDIT", SortKind.ASC, isInit, page, userID, text);
                 break;
             default:
                 break;
@@ -122,8 +122,8 @@ public class GoodsServiceImpl implements IGoodsService {
         return this.goodsDao.isAttendByUser(userID, goodsID) > 0;
     }
 
-    public int getCount(String userID, String region, GoodsKind goodsKind) {
-        return this.goodsDao.getCount(userID, region, goodsKind);
+    public int getCount(String userID, String region, GoodsKind goodsKind, String text) {
+        return this.goodsDao.getCount(userID, region, goodsKind, text);
     }
 
     public boolean updateStatus(String goodsID, GoodsStatus status) {

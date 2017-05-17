@@ -10,6 +10,7 @@ function HomePage() {
     var sortBasis = $("#sortBasis").val();
     var page = $("#page").val();
     var count = 16;
+    var goodsText = "";
     var ajax = new AjaxMethod();
     var href = new HrefMethod();
     var innerHelper = {
@@ -23,7 +24,39 @@ function HomePage() {
                 var element = event.toElement;
                 var elementClass = event.toElement.className;
                 if (elementClass === "filter-name a-button" && $(element).attr("data-kind") !== $("#goodsKind").val()) {
-                    $("#goodsKind").val($(element).attr("data-kind"));
+                    var goodsKind = $(element).attr("data-kind");
+                    $("#goodsKind").val(goodsKind);
+                    if (goodsKind) {
+                        switch (goodsKind){
+                            case "clothes":
+                                $("#currentKind").text("服装");
+                                break;
+                            case "digitalProduct":
+                                $("#currentKind").text("数码");
+                                break;
+                            case "sportsProduct":
+                                $("#currentKind").text("体育");
+                                break;
+                            case "food":
+                                $("#currentKind").text("食物");
+                                break;
+                            case "dailyUse":
+                                $("#currentKind").text("日常用品");
+                                break;
+                            case "schoolThings":
+                                $("#currentKind").text("学习用品");
+                                break;
+                            case "luxury":
+                                $("#currentKind").text("奢侈品");
+                                break;
+                            case "others":
+                                $("#currentKind").text("其他");
+                                break;
+                        };
+                    } else {
+                        $("#currentKind").text("全部");
+                    }
+                    $("#searchText").val("");
                     innerHelper.clearPage();
                     innerHelper.initPage();
                 }
@@ -54,8 +87,15 @@ function HomePage() {
                     if (!(userID && userPassword)) {
                         userID = "";
                     }
-                    href.viewGoodsSpecific(goodsID, userID);
+                    if (goodsID) {
+                        href.viewGoodsSpecific(goodsID, userID);
+                    }
                 }
+                return false;
+            });
+            $("#searchGoods").unbind("click").bind("click", function () {
+                innerHelper.clearPage();
+                innerHelper.initPage();
                 return false;
             });
         },
@@ -65,7 +105,7 @@ function HomePage() {
             } else {
                 userID = "";
             }
-            var defer = ajax.getGoodsList(userID, region, goodsKind, sortBasis, page);
+            var defer = ajax.getGoodsList(userID, region, goodsKind, sortBasis, page, goodsText);
             defer.done(innerHelper.showGoodsList).fail(innerHelper.showError);
         },
         getPageInformation: function () {
@@ -73,7 +113,7 @@ function HomePage() {
             if (!(userID && userPassword)) {
                 userID = "";
             }
-            var defer = ajax.getPage(userID, region, goodsKind);
+            var defer = ajax.getPage(userID, region, goodsKind, goodsText);
             defer.done(innerHelper.showPageList).fail();
         },
         updateValue: function () {
@@ -83,6 +123,7 @@ function HomePage() {
             goodsKind = $("#goodsKind").val();
             sortBasis = $("#sortBasis").val();
             page = $("#page").val();
+            goodsText = $("#searchText").val();
         },
         showGoodsList: function (data) {
             if (!goodsList) {
