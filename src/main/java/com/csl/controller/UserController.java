@@ -109,7 +109,7 @@ public class UserController {
     public UserDO registerAccount(UserDO userDO) {
         userDO.setID(UUID.randomUUID().toString());
         try {
-            boolean result = this.userService.registerCount(userDO);
+            boolean result = this.userService.registerAccount(userDO);
             if (result) {
                 return userDO;
             }

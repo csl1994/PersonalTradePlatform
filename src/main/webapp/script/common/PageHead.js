@@ -228,7 +228,7 @@ function PageHead() {
                 var sellerID = $(".js-seller-id").val();
                 if (grade > 0 && grade < 100) {
                     var defer = ajax.updateSellerGrade(orderID, sellerID, grade);
-                    defer.done().fail();
+                    defer.done(innerHelper.closeBuy).fail();
                 } else {
                     alert("请填写有效值");
                 }
@@ -239,7 +239,7 @@ function PageHead() {
                 var buyerID = $(".js-buyer-id").val();
                 if (grade > 0 && grade < 100) {
                     var defer = ajax.updateBuyerGrade(orderID, buyerID, grade);
-                    defer.done().fail();
+                    defer.done(innerHelper.closeSell).fail();
                 } else {
                     alert("请填写有效值");
                 }
@@ -254,7 +254,8 @@ function PageHead() {
                     $(".my-grade-show").empty().text("未评分");
                 }
                 if (bStatus === "end" || bStatus === "unread") {
-                    $("#selllerGrade").val(sGrade).attr("disabled", "true");
+                    $("#sellerGrade").val(sGrade).attr("disabled", "true");
+                    $("#buySubmit").unbind("click");
                 }
             } else {
                 //销售
@@ -265,6 +266,7 @@ function PageHead() {
                 }
                 if (sStatus === "end") {
                     $("#buyerGrade").val(bGrade).attr("disabled", "true");
+                    ("#sellSubmit").unbind("click");
                 }
             }
         },
@@ -284,6 +286,24 @@ function PageHead() {
             $.getJSON(url,function (data) {
                 alert(data.responseText.city);
             });
+        },
+        closeBuy:function(data){
+            if(data){
+                $("#buyRecordList").hide().find(".order-list").empty();
+                $("#buyRecordList").find(".order-list").hide();
+                $("#buyRecordList").find(".order-specific").hide();
+                $("#orderBackground").hide();
+                $("body").css("overflow", "auto");
+            }
+        },
+        closeSell:function (data) {
+            if(data){
+                $("#sellRecordList").hide().find(".order-list").empty();
+                $("#sellRecordList").find(".order-list").hide();
+                $("#sellRecordList").find(".order-specific").hide();
+                $("#orderBackground").hide();
+                $("body").css("overflow", "auto");
+            }
         }
     };
     return {

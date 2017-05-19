@@ -35,7 +35,7 @@ public class UserServiceImpl implements IUserService {
         return this.userDao.update(userDO) > 0;
     }
 
-    public Boolean registerCount(UserDO userDO) {
+    public Boolean registerAccount(UserDO userDO) {
         return this.userDao.save(userDO) > 0;
     }
 

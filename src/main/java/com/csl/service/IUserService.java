@@ -13,7 +13,7 @@ public interface IUserService {
 
     Boolean setUserInformation(UserDO userDO);
 
-    Boolean registerCount(UserDO userDO);
+    Boolean registerAccount(UserDO userDO);
 
     Boolean resetPassword(String email,String password);
 
