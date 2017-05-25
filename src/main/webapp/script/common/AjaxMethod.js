@@ -169,6 +169,14 @@ function AjaxMethod() {
                 dataType: "json",
             });
         },
+        getFiveCity: function () {
+            return $.ajax({
+                type: "GET",
+                url: "/user/getFiveCity.html",
+                data: {},
+                dataType: "json",
+            });
+        },
         attentionGoods: function (goodsID, userID, isAttention) {
             var options = {
                 goodsID: goodsID,

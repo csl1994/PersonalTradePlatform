@@ -7,11 +7,15 @@
             <img src="/content/image/home.png" id="buttonHome" alt="主页"/>
         </a>
     </div>
-    <div class="head-button-div hide">
+    <div class="head-button-div">
         <a class="a-button head-button" id="buttonRegion" href="javascript:void(0)">
-            地区
-            <div class="region-image"></div>
+            <span></span>
         </a>
+        <div class="region-menu" style="display: none;">
+            <div class="region-city">全国</div>
+            <div id="regionCurrent" class="region-city"></div>
+            <div id="fiveCity"></div>
+        </div>
     </div>
     <div class="head-button-div">
         <a class="a-button head-button" id="buttonCollection" href="javascript:void(0)">我的收藏</a>
@@ -41,3 +45,4 @@
 <script src="/script/common/PageHead.js?v=<%=new Date().getTime()%>"></script>
 <script type="text/javascript" src="/script/common/OrdersList.js?version=<%=new Date().getTime()%>"></script>
 <script type="text/javascript" src="/script/common/Timer.js?v=<%=new Date().getTime()%>"></script>
+<script src="/script/common/RegionList.js?v=<%=new Date().getTime()%>"></script>

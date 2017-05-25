@@ -4,7 +4,7 @@
 function PageHead() {
     var href = new HrefMethod();
     var ajax = new AjaxMethod();
-    var ip = undefined;
+    var region = undefined;
     var innerHelper = {
         buildEvent: function () {
             $(".page-head").bind("click", function (event) {
@@ -102,6 +102,17 @@ function PageHead() {
                         break;
                     case "mouseout":
                         $(".sub-menu").first().hide();
+                        break;
+                }
+                return false;
+            });
+            $("#buttonRegion").parent().unbind("mouseover mouseout").bind("mouseover mouseout", function (event) {
+                switch (event.type) {
+                    case "mouseover":
+                        $(".region-menu").first().show();
+                        break;
+                    case "mouseout":
+                        $(".region-menu").first().hide();
                         break;
                 }
                 return false;
@@ -274,17 +285,14 @@ function PageHead() {
             $(".js-email").val(data.email);
             $(".js-phone").val(data.telephone);
         },
-        getIp: function () {
-            debugger
-            var url = "http://chaxun.1616.net/s.php?type=ip&output=json&callback=?&_=" + Math.random();
-            $.getJSON(url, function (data) {
-                ip = data.Ip;
-            });
-        },
         getRegion:function () {
-            var url = "http://ip.taobao.com/service/getIpInfo.php?ip="+"111.117.113.141";
-            $.getJSON(url,function (data) {
-                alert(data.responseText.city);
+            var url = "http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js";
+            $.getScript(url,function () {
+                region = remote_ip_info.city;
+                $("#buttonRegion").find("span").empty().text(region);
+                $("#region").val(region);
+                home.init();
+                regionList.init();
             });
         },
         closeBuy:function(data){
@@ -311,6 +319,7 @@ function PageHead() {
             innerHelper.buildEvent();
             innerHelper.buildUserEvent();
             innerHelper.checkUser();
+            innerHelper.getRegion();
         },
     };
 }

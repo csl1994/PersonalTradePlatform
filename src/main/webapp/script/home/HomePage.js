@@ -168,4 +168,3 @@ function HomePage() {
     };
 }
 var home = new HomePage();
-home.init();

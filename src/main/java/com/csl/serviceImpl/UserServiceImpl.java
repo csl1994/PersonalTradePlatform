@@ -6,6 +6,8 @@ import com.csl.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by csl on 2017/3/8.
  */
@@ -61,5 +63,9 @@ public class UserServiceImpl implements IUserService {
 
     public boolean updateCredit(String ID, int count) {
         return this.userDao.updateCredit(ID, count) > 0;
+    }
+
+    public List<String> getFiveCity(){
+        return this.userDao.getTopFiveCity();
     }
 }

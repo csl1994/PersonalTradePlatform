@@ -83,8 +83,47 @@
             <input type="text" id="userTelephone" placeholder="手机"/>
         </div>
         <div class="user-information">
-            <label for="userRegion" class="hide">region</label>
-            <input type="text" id="userRegion" placeholder="地区"/>
+            <select onchange="chinaChange(this,document.getElementById('city'));"
+                    style=" width: 120px;; height:30px;line-height:30px; padding: 0;">
+                <option value="请选择市区">请选择省份</option>
+                <option value="北京市">北京市</option>
+                <option value="天津市">天津市</option>
+                <option value="上海市">上海市</option>
+                <option value="重庆市">重庆市</option>
+                <option value="河北省">河北省</option>
+                <option value="山西省">山西省</option>
+                <option value="辽宁省">辽宁省</option>
+                <option value="吉林省">吉林省</option>
+                <option value="黑龙江省">黑龙江省</option>
+                <option value="江苏省">江苏省</option>
+                <option value="浙江省">浙江省</option>
+                <option value="安徽省">安徽省</option>
+                <option value="福建省">福建省</option>
+                <option value="江西省">江西省</option>
+                <option value="山东省">山东省</option>
+                <option value="河南省">河南省</option>
+                <option value="湖北省">湖北省</option>
+                <option value="湖南省">湖南省</option>
+                <option value="广东省">广东省</option>
+                <option value="海南省">海南省</option>
+                <option value="四川省">四川省</option>
+                <option value="贵州省">贵州省</option>
+                <option value="云南省">云南省</option>
+                <option value="陕西省">陕西省</option>
+                <option value="甘肃省">甘肃省</option>
+                <option value="青海省">青海省</option>
+                <option value="台湾省">台湾省</option>
+                <option value="广西">广西</option>
+                <option value="内蒙">内蒙古</option>
+                <option value="西藏">西藏</option>
+                <option value="宁夏">宁夏</option>
+                <option value="新疆">新疆</option>
+                <option value="香港">香港</option>
+                <option value="澳门">澳门</option>
+            </select>
+            <select name="city" id="city" style=" width: 125px;; height:30px;line-height:30px;padding: 0;">
+                <option value="请选择市区">请选择市区</option>
+            </select>
         </div>
         <div class="user-operation">
             <label for="userConfirm" class="hide">button</label>
@@ -93,3 +132,4 @@
     </div>
 </form>
 <script src="/script/account/UserAccount.js?v=<%=new Date().getTime()%>"></script>
+<script src="/script/account/UserCity.js?v=<%=new Date().getTime()%>"></script>

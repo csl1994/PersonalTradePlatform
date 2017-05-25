@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by csl on 2017/3/30.
@@ -149,5 +146,11 @@ public class UserController {
     @ResponseBody
     public UserDO getOwner(String goodsID) {
         return this.userService.getOwner(goodsID);
+    }
+
+    @RequestMapping(value = "/getFiveCity", method = RequestMethod.GET)
+    @ResponseBody
+    public List<String> getFiveCity() {
+        return this.userService.getFiveCity();
     }
 }

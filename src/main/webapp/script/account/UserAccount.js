@@ -170,10 +170,10 @@ function UserAccount() {
             var regex = /^([0-9]{11})?$/;
             telephone = $.trim($("#userTelephone").val());
             userName = $.trim($("#userName").val());
-            region = $.trim($("#userRegion").val());
+            region = $.trim($("#city").val());
             if (!regex.test(telephone)) {
                 alert("输入正确的号码");
-            } else if (!userName || !telephone || !region) {
+            } else if (!userName || !telephone || !region || region === "请选择市区") {
                 alert("请输入全部信息");
             } else {
                 innerHelper.checkName();

@@ -168,4 +168,20 @@ public class UserDaoImpl implements IUserDao {
         });
         return credit.get(0);
     }
+
+    public List<String> getTopFiveCity() {
+        final String sql = "SELECT region,count(*) as num\n" +
+                "FROM goods LEFT JOIN `owner` on goods.ID = `owner`.GOODSID LEFT JOIN `user` on `owner`.USERID = `user`.ID\n" +
+                "GROUP BY `user`.REGION\n" +
+                "ORDER BY num desc\n" +
+                "LIMIT 0,5";
+        final List<String> result = new ArrayList<String>();
+        this.namedParameterJdbcTemplate.getJdbcOperations().query(sql,
+                new RowCallbackHandler() {
+                    public void processRow(ResultSet resultSet) throws SQLException {
+                        result.add(resultSet.getString("region"));
+                    }
+                });
+        return result;
+    }
 }

@@ -37,16 +37,6 @@ public class UserServiceImplTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void registerUser() {
-        UserDO userDO = new UserDO();
-        userDO.setID(UUID.randomUUID().toString());
-        userDO.setEmail("18840824444@163.com");
-        userDO.setPassword("650802");
-        userDO.setRegion("dalian");
-        userDO.setName("user3");
-        userDO.setCredit(50);
-        userDO.setTelephone("18840824444");
-        boolean result1 = userService.registerCount(userDO);
-        assertTrue(result1);
     }
 
     @Test
