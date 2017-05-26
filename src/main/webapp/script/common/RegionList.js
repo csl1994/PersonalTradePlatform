@@ -7,6 +7,7 @@ function RegionList() {
         bindEvent: function () {
             $(".region-city").unbind("click").bind("click",function () {
                 var region = $(this).text();
+                $("#buttonRegion").find("span").text(region);
                 if(region === "全国"){
                     $("#region").val("");
                 }else {
