@@ -62,6 +62,8 @@ function PageHead() {
                         break;
                     case "exit":
                         $.cookie("userPassword", "");
+                        $.cookie("userID", "");
+                        $.cookie("userName", "");
                         href.goHome();
                         href.goHome();
                         break;
