@@ -55,6 +55,14 @@ function UserAccount() {
                     case "userConfirm":
                         innerHelper.checkInformation();
                         break;
+                    case "modifyClose":
+                        $("#userBackground").hide();
+                        $("#modifyForm").hide();
+                        $("body").css("overflow", "auto");
+                        break;
+                    case "modifyConfirm":
+                        innerHelper.modifyMessage();
+                        break;
                     default:
                         break;
                 }
@@ -273,6 +281,26 @@ function UserAccount() {
             acceptEmail = email;
             var regex = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
             return regex.test(email);
+        },
+        modifyMessage: function () {
+            var regex = /^([0-9]{11})?$/;
+            var telephone = $.trim($("#modifyTelephone").val());
+            var ID = $.cookie("userID");
+            if (!regex.test(telephone)) {
+                alert("输入正确的号码");
+            } else {
+                var defer = ajax.modifyMessage(ID, telephone);
+                defer.done(innerHelper.successModify).fail();
+            }
+        },
+        successModify: function (data) {
+            if (data !== true) {
+                alert("操作失败");
+            }else{
+                $("#userBackground").hide();
+                $("#modifyForm").hide();
+                $("body").css("overflow", "auto");
+            }
         },
     };
     return {

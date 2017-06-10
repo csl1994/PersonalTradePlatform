@@ -3,6 +3,7 @@ package com.csl.serviceImpl;
 import com.csl.daoImpl.UserDaoImpl;
 import com.csl.domain.UserDO;
 import com.csl.service.IUserService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +46,10 @@ public class UserServiceImpl implements IUserService {
         return this.userDao.updatePassword(email, password) > 0;
     }
 
+    public Boolean changeMessage(String ID, String telephone) {
+        return this.userDao.updateMessage(telephone, ID) > 0;
+    }
+
     public Boolean checkEmail(String email) {
         return this.userDao.checkEmail(email) <= 0;
     }
@@ -65,7 +70,28 @@ public class UserServiceImpl implements IUserService {
         return this.userDao.updateCredit(ID, count) > 0;
     }
 
-    public List<String> getFiveCity(){
+    public List<String> getFiveCity() {
         return this.userDao.getTopFiveCity();
+    }
+
+    public Boolean addFriend(String oneID, String twoID, String name) {
+        return this.userDao.addFriend(oneID, twoID, name) > 0;
+    }
+
+    public List<UserDO> getAllFriends(String oneID) {
+        return this.userDao.getAllFriends(oneID);
+    }
+
+    public boolean checkFriend(String oneID, String twoID) {
+        UserDO userDO = this.userDao.checkFriend(oneID, twoID);
+        boolean result = false;
+        if(userDO.getID() != null){
+            result = userDO.getID().equals(twoID);
+        }
+        return result;
+    }
+
+    public Boolean removeFriend(String oneID, String twoID) {
+        return this.userDao.removeFriend(oneID, twoID) > 0;
     }
 }

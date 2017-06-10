@@ -43,6 +43,27 @@ function GoodsSpecific() {
                 $("#parameter").show();
                 $("#goodsParameters").addClass("current-a");
             });
+            $("#attentionUser").unbind("click").bind("click", function () {
+                var oneID = $.cookie("userID");
+                var twoID = $("#sellerID").val();
+                var twoName = $("#sellerName").text();
+                if (oneID && twoID && twoName) {
+                    var defer = ajax.addFriend(oneID, twoID, twoName);
+                    defer.done(innerHelper.successAdd).fail();
+                } else {
+                    alert("请登入");
+                }
+            });
+            $("#unAttentionUser").unbind("click").bind("click",function () {
+                var oneID = $.cookie("userID");
+                var twoID = $("#sellerID").val();
+                if (oneID && twoID) {
+                    var defer = ajax.removeFriend(oneID, twoID);
+                    defer.done(innerHelper.successRemove).fail();
+                } else {
+                    alert("请登入");
+                }
+            });
         },
         updateValue: function () {
             userID = $.cookie("userID");
@@ -64,14 +85,50 @@ function GoodsSpecific() {
             var defer = ajax.getOwner(goodsID);
             defer.done(innerHelper.showMessage).fail();
         },
-        showMessage:function (data) {
+        checkFriend: function () {
+            debugger
+            var oneID = $.cookie("userID");
+            var twoID = $("#sellerID").val();
+            if (oneID && twoID) {
+                var defer = ajax.checkFriend(oneID, twoID);
+                defer.done(innerHelper.showFriend).fail();
+            }
+        },
+        showFriend: function (data) {
+            debugger
+            if (data === true) {
+                $("#unAttentionUser").show();
+            } else {
+                $("#attentionUser").show();
+            }
+        },
+        showMessage: function (data) {
             $("#userTelephone").empty().text(data.telephone);
             $("#userEmail").empty().text(data.email);
         },
+        successAdd: function (data) {
+            if (data === true) {
+                alert("成功");
+                $("#unAttentionUser").show();
+                $("#attentionUser").hide();
+            } else {
+                alert("失败");
+            }
+        },
+        successRemove:function (data) {
+            if (data === true) {
+                alert("成功");
+                $("#attentionUser").show();
+                $("#unAttentionUser").hide();
+            } else {
+                alert("失败");
+            }
+        }
     };
     return {
         init: function () {
             innerHelper.buildEvent();
+            innerHelper.checkFriend();
         },
     };
 }

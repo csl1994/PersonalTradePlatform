@@ -61,7 +61,7 @@
             </div>
             <div class="specific-operation">
                 <div class="operation-kind">掌柜</div>
-                <span class="">${user.name}</span>
+                <span class="" id="sellerName">${user.name}</span>
                 <input type="hidden" value="${user.ID}" id="sellerID" />
             </div>
             <div class="specific-operation">
@@ -72,6 +72,8 @@
             </div>
             <div class="specific-operation">
                 <a class="a-button operation-order" id="orderGoods">联系掌柜</a>
+                <a class="a-button operation-order" id="attentionUser" style="display: none">关注掌柜</a>
+                <a class="a-button operation-order" id="unAttentionUser" style="display: none">不再关注</a>
             </div>
         </div>
     </div>

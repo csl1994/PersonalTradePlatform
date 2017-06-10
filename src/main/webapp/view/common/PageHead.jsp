@@ -24,7 +24,7 @@
         <a class="a-button head-button" id="buttonStore" href="javascript:void(0)">我的柜台</a>
     </div>
     <%--<div class="head-button-div">--%>
-        <%--<a class="a-button head-button" id="buttonExplain" href="javascript:void(0)">说明</a>--%>
+    <%--<a class="a-button head-button" id="buttonExplain" href="javascript:void(0)">说明</a>--%>
     <%--</div>--%>
     <div class="head-button-div">
         <a class="a-button head-button" id="buttonLogin" href="javascript:void(0)">登入平台</a>
@@ -36,13 +36,17 @@
                 <a class="a-button menu-a" id="buyRecord">购买记录</a>
                 <a class="a-button menu-a" id="sellFRecord">销售记录</a>
                 <a class="a-button menu-a" id="addGoods">新增物品</a>
+                <a class="a-button menu-a" id="modifyMessage">修改信息</a>
+                <a class="a-button menu-a" id="myFriend">我的关注</a>
                 <a class="a-button menu-a" id="exit">退出系统</a>
             </div>
         </div>
     </div>
 </div>
 <%@include file="/view/orders/Orders.jsp" %>
+<%@include file="/view/account/UserList.jsp" %>
 <script src="/script/common/PageHead.js?v=<%=new Date().getTime()%>"></script>
 <script type="text/javascript" src="/script/common/OrdersList.js?version=<%=new Date().getTime()%>"></script>
 <script type="text/javascript" src="/script/common/Timer.js?v=<%=new Date().getTime()%>"></script>
 <script src="/script/common/RegionList.js?v=<%=new Date().getTime()%>"></script>
+<script src="/script/common/UserList.js?v=<%=new Date().getTime()%>"></script>

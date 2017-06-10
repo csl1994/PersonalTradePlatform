@@ -131,5 +131,17 @@
         </div>
     </div>
 </form>
+<form id="modifyForm" class="user-dialog hide">
+    <div class="user-title">修改信息</div>
+    <div id="modifyClose" class="user-close">×</div>
+    <div class="user-information">
+        <label for="userTelephone" class="hide">telephone</label>
+        <input type="text" id="modifyTelephone" placeholder="手机"/>
+    </div>
+    <div class="user-operation">
+        <label for="userConfirm" class="hide">button</label>
+        <input type="button" id="modifyConfirm" class="user-login" value="确认"/>
+    </div>
+</form>
 <script src="/script/account/UserAccount.js?v=<%=new Date().getTime()%>"></script>
 <script src="/script/account/UserCity.js?v=<%=new Date().getTime()%>"></script>

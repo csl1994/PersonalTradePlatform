@@ -158,6 +158,66 @@ function AjaxMethod() {
                 dataType: "json",
             })
         },
+        modifyMessage: function (ID, telephone) {
+            var options = {
+                ID: ID,
+                telephone: telephone,
+            };
+            return $.ajax({
+                type: "POST",
+                url: "/user/modifyMessage.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        addFriend: function (oneID, twoID, name) {
+            var options = {
+                oneID: oneID,
+                twoID: twoID,
+                name: name,
+            };
+            return $.ajax({
+                type: "POST",
+                url: "/user/addFriend.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        getAllFriends: function (oneID) {
+            var options = {
+                oneID: oneID,
+            };
+            return $.ajax({
+                type: "POST",
+                url: "/user/getAllFriends.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        checkFriend: function (oneID, twoID) {
+            var options = {
+                oneID: oneID,
+                twoID: twoID,
+            };
+            return $.ajax({
+                type: "POST",
+                url: "/user/checkFriend.html",
+                data: options,
+                dataType: "json",
+            });
+        },
+        removeFriend: function (oneID, twoID) {
+            var options = {
+                oneID: oneID,
+                twoID: twoID,
+            };
+            return $.ajax({
+                type: "POST",
+                url: "/user/removeFriend.html",
+                data: options,
+                dataType: "json",
+            });
+        },
         getOwner: function (goodsID) {
             var options = {
                 goodsID: goodsID,

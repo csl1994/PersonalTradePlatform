@@ -21,8 +21,11 @@ function HrefMethod() {
         editGoods: function (goodsID) {
             window.location.href = "http://localhost:8080/goods/editGoods/" + goodsID + ".html";
         },
-        createGoods:function () {
+        createGoods: function () {
             window.open("/goods/createGoods.html");
+        },
+        viewFriendGoods: function (twoID) {
+            window.location.href = "http://localhost:8080/goods/friendGoods/" + twoID + ".html";
         }
     }
 }

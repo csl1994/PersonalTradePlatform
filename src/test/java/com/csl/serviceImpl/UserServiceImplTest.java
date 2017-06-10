@@ -53,11 +53,9 @@ public class UserServiceImplTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void test() {
-        double d = 1.2312;
-        String string = d + "";
-        int j = 0;
-        String str = string.substring(0, string.indexOf(".")) + string.substring(string.indexOf(".") + 1);
-        int intgeo = Integer.parseInt(str);
-        int a = Integer.parseInt(new java.text.DecimalFormat("0").format(d));
+        //boolean a = this.userService.checkFriend("576a208b-bc4b-428f-b30e-db6d0d6ea00e","08ffbf84-029f-4719-9eb1-7253bd88abeb");
+        //boolean b = this.userService.checkFriend("576a208b-bc4b-428f-b30e-db6d0d6ea00e","08ffbf84-029f-4719-9eb1-7253bd88abeb");
+        //UserDO userDO = this.userService.checkFriend("576a208b-bc4b-428f-b30e-db6d0d6ea00e","08ffbf84-029f-4719-9eb1-7253bd88abeb");
+        //UserDO userDO1 = this.userService.checkFriend("576a208b-bc4b-428f-b30e-db6d0d6ea00e","08ffbf84-029f-4719-9eb1-7253bd88abeb");
     }
 }

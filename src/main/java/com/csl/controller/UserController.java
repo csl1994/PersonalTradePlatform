@@ -65,7 +65,7 @@ public class UserController {
         return result;
     }
 
-    @RequestMapping(value = "checkValidateCode", method = RequestMethod.GET)
+    @RequestMapping(value = "/checkValidateCode", method = RequestMethod.GET)
     @ResponseBody
     public boolean checkValidateCode(String validateCode, int kind) {
         boolean result = true;
@@ -83,25 +83,25 @@ public class UserController {
         return result;
     }
 
-    @RequestMapping(value = "checkEmail", method = RequestMethod.GET)
+    @RequestMapping(value = "/checkEmail", method = RequestMethod.GET)
     @ResponseBody
     public boolean checkEmail(String userEmail) {
         return this.userService.checkEmail(userEmail);
     }
 
-    @RequestMapping(value = "checkName", method = RequestMethod.GET)
+    @RequestMapping(value = "/checkName", method = RequestMethod.GET)
     @ResponseBody
     public boolean checkName(String userName) {
         return this.userService.checkName(userName);
     }
 
-    @RequestMapping(value = "checkTelephone", method = RequestMethod.GET)
+    @RequestMapping(value = "/checkTelephone", method = RequestMethod.GET)
     @ResponseBody
     public boolean checkTelephone(String telephone) {
         return this.userService.checkTelephone(telephone);
     }
 
-    @RequestMapping(value = "registerAccount", method = RequestMethod.POST)
+    @RequestMapping(value = "/registerAccount", method = RequestMethod.POST)
     @ResponseBody
     public UserDO registerAccount(UserDO userDO) {
         userDO.setID(UUID.randomUUID().toString());
@@ -116,7 +116,7 @@ public class UserController {
         return null;
     }
 
-    @RequestMapping(value = "sendValidateCode", method = RequestMethod.GET)
+    @RequestMapping(value = "/sendValidateCode", method = RequestMethod.GET)
     @ResponseBody
     public boolean sendValidateCode(String email) {
         boolean result = true;
@@ -128,7 +128,7 @@ public class UserController {
         return result;
     }
 
-    @RequestMapping(value = "updateAccount", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateAccount", method = RequestMethod.POST)
     @ResponseBody
     public UserDO updateAccount(String email, String password) {
         try {
@@ -142,6 +142,12 @@ public class UserController {
         return null;
     }
 
+    @RequestMapping(value = "/modifyMessage", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean modifyMessage(String ID, String telephone) {
+        return this.userService.changeMessage(ID, telephone);
+    }
+
     @RequestMapping(value = "/getOwner", method = RequestMethod.GET)
     @ResponseBody
     public UserDO getOwner(String goodsID) {
@@ -152,5 +158,29 @@ public class UserController {
     @ResponseBody
     public List<String> getFiveCity() {
         return this.userService.getFiveCity();
+    }
+
+    @RequestMapping(value = "/addFriend", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean addFriend(String oneID, String twoID, String name) {
+        return this.userService.addFriend(oneID, twoID, name);
+    }
+
+    @RequestMapping(value = "/getAllFriends", method = RequestMethod.POST)
+    @ResponseBody
+    public List<UserDO> getAllFriends(String oneID) {
+        return this.userService.getAllFriends(oneID);
+    }
+
+    @RequestMapping(value = "/checkFriend", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean checkFriend(String oneID, String twoID) {
+        return this.userService.checkFriend(oneID, twoID);
+    }
+
+    @RequestMapping(value = "/removeFriend", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean removeFriend(String oneID, String twoID) {
+        return this.userService.removeFriend(oneID, twoID);
     }
 }

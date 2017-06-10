@@ -99,6 +99,12 @@ public class UserDaoImpl implements IUserDao {
                 new MapSqlParameterSource().addValue("password", password).addValue("email", email));
     }
 
+    public int updateMessage(final String telephone, final String ID) {
+        final String sql = " UPDATE USER SET TELEPHONE=:telephone WHERE ID=:ID ";
+        return this.namedParameterJdbcTemplate.update(sql,
+                new MapSqlParameterSource().addValue("telephone", telephone).addValue("ID", ID));
+    }
+
     public int checkEmail(String email) {
         final String sql = " SELECT ID FROM USER WHERE EMAIL=:email ";
         final List<String> ID = new ArrayList<String>();
@@ -183,5 +189,40 @@ public class UserDaoImpl implements IUserDao {
                     }
                 });
         return result;
+    }
+
+    public int addFriend(final String oneID, final String twoID, final String name) {
+        final String sql = " INSERT INTO FRIEND VALUES (:oneID,:twoID,:name) ";
+        return this.namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValue("oneID", oneID).addValue("twoID", twoID).addValue("name", name));
+    }
+
+    public List<UserDO> getAllFriends(final String oneID) {
+        final String sql = " SELECT TWOID,TWONAME FROM FRIEND WHERE ONEID=:oneID ";
+        final List<UserDO> userDOList = new ArrayList<UserDO>();
+        this.namedParameterJdbcTemplate.query(sql, new MapSqlParameterSource().addValue("oneID", oneID), new RowCallbackHandler() {
+            public void processRow(ResultSet resultSet) throws SQLException {
+                UserDO userDO = new UserDO();
+                userDO.setID(resultSet.getString("TWOID"));
+                userDO.setName(resultSet.getString("TWONAME"));
+                userDOList.add(userDO);
+            }
+        });
+        return userDOList;
+    }
+
+    public UserDO checkFriend(final String oneID, final String twoID) {
+        final String sql = " SELECT TWOID FROM FRIEND WHERE ONEID=:oneID AND TWOID=:twoID ";
+        final UserDO userDO = new UserDO();
+        this.namedParameterJdbcTemplate.query(sql, new MapSqlParameterSource().addValue("oneID", oneID).addValue("twoID", twoID), new RowCallbackHandler() {
+            public void processRow(ResultSet resultSet) throws SQLException {
+                userDO.setID(resultSet.getString("TWOID"));
+            }
+        });
+        return userDO;
+    }
+
+    public int removeFriend(final String oneID, final String twoID) {
+        final String sql = " DELETE FROM FRIEND WHERE ONEID=:oneID AND TWOID=:twoID ";
+        return this.namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValue("oneID", oneID).addValue("twoID", twoID));
     }
 }

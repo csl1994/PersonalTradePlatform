@@ -60,6 +60,17 @@ function PageHead() {
                     case "addGoods":
                         href.createGoods();
                         break;
+                    case "modifyMessage":
+                        $("body").css("overflow", "hidden");
+                        $("#userBackground").show();
+                        $("#modifyForm").show();
+                        break;
+                    case "myFriend":
+                        $("body").css("overflow", "hidden");
+                        $("#friendBackground").show();
+                        $("#friend").show();
+                        innerHelper.getAllFriends();
+                        break;
                     case "exit":
                         $.cookie("userPassword", "");
                         $.cookie("userID", "");
@@ -258,6 +269,18 @@ function PageHead() {
                 }
             });
         },
+        buildFriendEvent: function () {
+            $(".order-item").unbind("click").bind("click", function () {
+                var userID = $(this).find("input").val();
+                href.viewFriendGoods(userID);
+                return false;
+            });
+            $("#friendClose").unbind("click").bind("click", function () {
+                $("body").css("overflow", "hidden");
+                $("#friendBackground").hide();
+                $("#friend").hide();
+            });
+        },
         deployOrderSpecific: function (sGrade, sStatus, bGrade, bStatus, kind) {
             if (kind) {
                 //购买
@@ -287,9 +310,9 @@ function PageHead() {
             $(".js-email").val(data.email);
             $(".js-phone").val(data.telephone);
         },
-        getRegion:function () {
+        getRegion: function () {
             var url = "http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js";
-            $.getScript(url,function () {
+            $.getScript(url, function () {
                 region = remote_ip_info.city;
                 $("#buttonRegion").find("span").empty().text(region);
                 $("#region").val(region);
@@ -297,8 +320,8 @@ function PageHead() {
                 regionList.init();
             });
         },
-        closeBuy:function(data){
-            if(data){
+        closeBuy: function (data) {
+            if (data) {
                 $("#buyRecordList").hide().find(".order-list").empty();
                 $("#buyRecordList").find(".order-list").hide();
                 $("#buyRecordList").find(".order-specific").hide();
@@ -306,15 +329,32 @@ function PageHead() {
                 $("body").css("overflow", "auto");
             }
         },
-        closeSell:function (data) {
-            if(data){
+        closeSell: function (data) {
+            if (data) {
                 $("#sellRecordList").hide().find(".order-list").empty();
                 $("#sellRecordList").find(".order-list").hide();
                 $("#sellRecordList").find(".order-specific").hide();
                 $("#orderBackground").hide();
                 $("body").css("overflow", "auto");
             }
-        }
+        },
+        getAllFriends: function () {
+            var oneID = $.cookie("userID");
+            var defer = ajax.getAllFriends(oneID);
+            defer.done(innerHelper.showUser).fail();
+        },
+        showUser: function (data) {
+            $("#friendList").empty();
+            if (data) {
+                var options = {
+                    listElement: $("#friendList"),
+                    data: data,
+                };
+                var userList = new UserList(options);
+                userList.init();
+                innerHelper.buildFriendEvent();
+            }
+        },
     };
     return {
         init: function () {

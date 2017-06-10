@@ -140,6 +140,13 @@ public class GoodsController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/friendGoods/{twoID}", method = RequestMethod.GET)
+    public ModelAndView friendGoods(@PathVariable("twoID") String twoID) {
+        ModelAndView modelAndView = new ModelAndView("FriendGoods");
+        modelAndView.addObject("twoID", twoID);
+        return new ModelAndView("FriendGoods");
+    }
+
     @RequestMapping(value = "/upImage", method = RequestMethod.POST)
     @ResponseBody
     public boolean upImage(@RequestParam("file") MultipartFile imageFile) {
