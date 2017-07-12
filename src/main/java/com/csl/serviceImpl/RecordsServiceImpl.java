@@ -46,34 +46,34 @@ public class RecordsServiceImpl {
         double parameterU = 0;
         if (currentOrderGrade >= 80) {
             success += 1;
-            sd = success / (success + fail + 1);
-            fd = fail / (success + fail + 1);
-            ud = 1 - sd - fd;
+            sd = success / (success + fail + 1.0);
+            fd = fail / (success + fail + 1.0);
+            ud = 1.0 - sd - fd;
             parameterS = new Random().nextDouble() * 0.2 + 0.75;
             parameterF = new Random().nextDouble() * 0.2 + parameterS;
             parameterF = parameterF > 1 ? 1 : parameterF;
             parameterU = success / (success + fail);
-            currentCredit = ((parameterS * sd - parameterF * fd + parameterU * ud) * 100 );
+            currentCredit = ((parameterS * sd - parameterF * fd + parameterU * ud) * 100.0 );
         } else if (currentOrderGrade >= 60) {
             fail += 1;
-            sd = success / (success + fail + 1);
-            fd = fail / (success + fail + 1);
-            ud = 1 - sd - fd;
+            sd = success / (success + fail + 1.0);
+            fd = fail / (success + fail + 1.0);
+            ud = 1.0 - sd - fd;
             parameterS = new Random().nextDouble() * 0.2 + 0.655;
             parameterF = new Random().nextDouble() * 0.2 + parameterS;
             parameterF = parameterF > 1 ? 1 : parameterF;
             parameterU = success / (success + fail);
-            currentCredit = ((parameterS * sd - parameterF * fd + parameterU * ud) * 100 );
+            currentCredit = ((parameterS * sd - parameterF * fd + parameterU * ud) * 100.0 );
         } else {
             fail += 1;
-            sd = success / (success + fail + 1);
-            fd = fail / (success + fail + 1);
-            ud = 1 - sd - fd;
+            sd = success / (success + fail + 1.0);
+            fd = fail / (success + fail + 1.0);
+            ud = 1.0 - sd - fd;
             parameterS = new Random().nextDouble() * 0.2 + 0.655;
             parameterF = new Random().nextDouble() * 0.2 + parameterS;
             parameterF = parameterF > 1 ? 1 : parameterF;
             parameterU = 0;
-            currentCredit = ((parameterS * sd - parameterF * fd + parameterU * ud) * 100 );
+            currentCredit = ((parameterS * sd - parameterF * fd + parameterU * ud) * 100.0 );
         }
         result = Integer.parseInt(new java.text.DecimalFormat("0").format(currentCredit));
         if (result > 100) {

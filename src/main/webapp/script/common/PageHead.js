@@ -189,7 +189,7 @@ function PageHead() {
                             $("#buyRecordList").find(".order-specific").show();
                             var defer = ajax.getUserByID(sellerID);
                             defer.done(innerHelper.deployUser).fail();
-                            if (sellerStatus === "unread") {
+                            if (buyerStatus === "unread") {
                                 var defer1 = ajax.updateBuyerStatus(orderID, "end");
                                 defer1.done().fail();
                             }
@@ -316,8 +316,10 @@ function PageHead() {
                 region = remote_ip_info.city;
                 $("#buttonRegion").find("span").empty().text(region);
                 $("#region").val(region);
-                home.init();
-                regionList.init();
+                if(home){
+                    home.init();
+                    regionList.init();
+                }
             });
         },
         closeBuy: function (data) {
